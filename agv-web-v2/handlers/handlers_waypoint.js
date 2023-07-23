@@ -99,6 +99,13 @@ exports.waypoint_config = (req, res) => {
             embed_mapName=''
             embed_plan_name=''
             
+
+            node_manager.send_data({
+                topic:"navigation1",
+                script:`roslaunch turtlebot3_navigation turtlebot3_navigation.launch`,
+                mode:"stop"
+            });
+
             outData = 'OK'
             break        
         case 'getPlan':
@@ -113,6 +120,13 @@ exports.waypoint_config = (req, res) => {
 
             console.log(obj);
             outData = obj
+            break        
+        case 'manual_nav':
+            node_manager.send_data({
+                topic:"navigation1",
+                script:`roslaunch turtlebot3_navigation turtlebot3_navigation.launch`,
+                mode:"start"
+            });
             break        
     }
     res.send(outData);

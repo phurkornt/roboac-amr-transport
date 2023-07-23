@@ -93,16 +93,16 @@
             mode: "init_pose",
             name: "init_pose"
         })
+
         let btn_confirm = document.createElement("button");
         btn_confirm.innerHTML = "<br> Confirm";
         btn_confirm.classList='btn  btn-default btn-lg'
         btn_confirm.id = "btn_confirm"
-        
-        // let btn_cancle = document.createElement("button");
-        // btn_cancle.innerHTML = "<br> Exit";
-        // btn_cancle.classList='btn  btn-default btn-lg'
-        // btn_cancle.id = "btn_cancle"
-        
+        let img = document.createElement("img");
+        img.src = "/images/confirmation.png"
+        img.style = "width: 2rem;"
+
+        btn_confirm.insertBefore(img,btn_confirm.childNodes[0]);
         // ค้นหา element ที่มี id เป็น "place_btn"
         var element = document.getElementById("place_btn");
 
@@ -117,12 +117,6 @@
             })
         })
         one_click_init_pose = false
-        // document.querySelector("#btn_cancle").addEventListener('click', () => {
-        //     send_topic({
-        //         mode: "init_pose_cancle",
-        //         name: "init_pose"
-        //     })
-        // })
     })
     
 
@@ -168,4 +162,7 @@
     }
 
     clear_marker();
+
+
+ 
 </script>

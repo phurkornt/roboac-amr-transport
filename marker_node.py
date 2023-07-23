@@ -171,7 +171,10 @@ def callback_manage(data):
         server.erase(name)
         server.applyChanges()
     elif json_data['mode'] == "clear":
+        
+        server.clear()
         server.applyChanges()
+
     elif json_data['mode'] == "init_pose":
 
         position = {"x":0,"y":0,"z":0.01}

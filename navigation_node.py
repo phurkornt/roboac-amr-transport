@@ -203,6 +203,11 @@ def talker():
 
         rospy.loginfo(client.get_goal_status_text())
         rospy.loginfo(str(len(pose))+" INDEX : "+str(index))
+
+        pub = rospy.Publisher('/roboAC/robot_pose_status', String, queue_size=10)
+        hello_str = str(index)
+        pub.publish(hello_str)
+
         rate.sleep()
     
 
@@ -212,6 +217,7 @@ if __name__ == '__main__':
     rospy.init_node('movebase_client_py')
     rospy.Subscriber("/roboAC/nav_node", String, callback_test)
     rospy.Subscriber("/robot_pose", Pose, callback_robot_pose)
+   
     talker()
     
     

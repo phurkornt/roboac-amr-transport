@@ -131,4 +131,32 @@
         }, 1200);
     }
     init();
+
+       // ------------ Status ------------
+
+    setInterval(() => {
+      // document.querySelector('.status').document.querySelectorAll('.status')
+        var listener = new ROSLIB.Topic({
+          ros : ros,
+          name : '/roboAC/robot_pose_status',
+          messageType : 'std_msgs/String'
+        });
+
+        listener.subscribe(function(message) {
+          console.log('Received message on ' + listener.name + ': ' + message.data);
+          num = Number.parseInt(message.data);
+          dt = document.querySelectorAll('.status');
+
+        //   console.log(dt[0].c);
+          for (i=0;i< num ;i++){
+                const imageElement = dt[i].querySelector("img");
+                imageElement.src = "/images/new-moon.png";
+          }
+
+          listener.unsubscribe();
+        });
+
+      
+    }, 1000);
+
 </script>

@@ -108,7 +108,7 @@
                     <th scope="col">#</th>
                     <th scope="col">ชื่อตำเเหน่ง</th>
                     <th scope="col">ประเภท</th>
-                    <!-- <th scope="col">สถานะ</th> -->
+                    <th scope="col">สถานะ</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -128,9 +128,26 @@
                       </td>
                     <%}%>
 
-                    <!-- <td>.</td> -->
+                    <td class="status">
+                      <img src="/images/record.png" style="width: 1.5rem;">
+                    </td>
+
                   </tr>
                   <% } %>
+                  <% for( let i of plan_waypoint.chargepoint ) { %>
+                    <tr>
+                      <td class="text-lg"><%= n++ %></td>
+                      <td class="text-lg"><%= i.name %></td>
+                      <td class="text-lg">
+                        <img src="/images/icons/battery.svg" style="width: 1.5rem;">
+                      </td>
+                      <td class="status">
+                        <img src="/images/record.png" style="width: 1.5rem;">
+                      </td>
+                      
+                    </tr>
+                    <% } %>
+
                 </tbody>
               </table>
             </div>
@@ -143,15 +160,15 @@
           
           <div class="col-xl-8 col-lg-12 col-12  ">
             <div class="row">
-              <div class="col-6">
-                <p>test Battery 10%</p>
-                <p>test Velocity 0.15m/s</p>
-              </div>
-              <div class="col-6">
-                <button onclick="my_test('set')"type="button" class="btn p-3 btn-success btn-lg">for-test -> set</button>
+              <!-- <div class="col-4"> -->
+                <!-- <p>test Battery 10%</p> -->
+                <!-- <p>test Velocity 0.15m/s</p> -->
+              <!-- </div> -->
+              <div class="col-8">
+                <!-- <button onclick="my_test('set')"type="button" class="btn p-3 btn-success btn-lg">set</button> -->
                 <button onclick="my_test('run')"type="button" class="btn p-3 btn-success btn-lg">เคลื่อนที่</button>
                 <button onclick="my_test('pause')" type="button" class="btn p-3 btn-warning btn-lg">หยุดเคลื่อนที่</button>
-                <button onclick="my_test('sw')" type="button" class="btn p-3 btn-warning btn-lg">for-test -> sw</button>
+                <button onclick="my_test('sw')" type="button" class="btn p-3 btn-warning btn-lg">sw</button>
               </div>
             </div>
 
@@ -278,8 +295,12 @@
             alert_error('Error')
           });
       }
+
+
+      
     </script>
     <%- include('./js/page_nav/js_nav_select'); %>
+
     <%} %>
 
     

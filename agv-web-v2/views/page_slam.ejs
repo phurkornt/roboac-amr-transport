@@ -25,13 +25,13 @@
 
     <div class="row">
       
-      <div class="col-md-3"></div>
+      <div class="col-md-1"></div>
 
-      <div class="btn  col-md-6  col-12" >
+      <div class="btn  col-md-10  col-12" >
         <button onclick="open_slam()" type="button" class="btn p-4 btn-success btn-lg">เปิดระบบการสร้างแผนที่</button>
       </div>
 
-      <div class="col-md-3"></div>
+      <div class="col-md-1"></div>
 
       
     </div>
@@ -41,9 +41,6 @@
 
 
   <script>
-
-
-
 
     function open_slam() {
 
@@ -241,13 +238,13 @@
       })
 
       // POLYGON
-      const my_polygon = new ROS3D.Polygon({
-        ros: ros,
-        topic: '/move_base/local_costmap/footprint',
-        tfClient: tfClient,
-        rootObject: viewer.scene,
-        material: { size: 0.5, color: 0x1111 }
-      })
+      // const my_polygon = new ROS3D.Polygon({
+      //   ros: ros,
+      //   topic: '/move_base/local_costmap/footprint',
+      //   tfClient: tfClient,
+      //   rootObject: viewer.scene,
+      //   material: { size: 0.5, color: 0x1111 }
+      // })
 
       // TFAXES
       const my_axes = new ROS3D.TFAxes({
@@ -267,55 +264,6 @@
         camera: viewer.camera,
         rootObject: viewer.selectableObjects
       });
-
-
-      // document.querySelector("#btn").addEventListener('click', () => {
-
-      //   console.log("1");
-      //   var publisher = new ROSLIB.Topic({
-      //     ros: ros,
-      //     name: '/roboAC/manage_ui_waypoint',
-      //     messageType: 'std_msgs/String'
-      //   });
-      //   n = prompt("set name")
-      //   myData = {
-      //     mode: "insert",
-      //     name: n
-      //   }
-
-
-      //   var message = new ROSLIB.Message({
-      //     data: JSON.stringify(myData)
-      //   });
-
-      //   publisher.publish(message);
-
-      // })
-
-      // document.querySelector("#btn2").addEventListener('click', () => {
-      //   var publisher = new ROSLIB.Topic({
-      //     ros: ros,
-      //     name: '/roboAC/manage_ui_waypoint',
-      //     messageType: 'std_msgs/String'
-      //   });
-      //   myData = {
-      //     mode: "clear"
-      //   }
-
-
-      //   var message = new ROSLIB.Message({
-      //     data: JSON.stringify(myData)
-      //   });
-
-      //   publisher.publish(message);
-
-      // })
-
-
-
-
-
-
 
       //  ---------------------------- CMD_VEL ----------------------------
 
@@ -369,9 +317,45 @@
       })
 
       //  ---------------------------- CMD_VEL ----------------------------
+      // ----------------------- Setup the marker client. -----------------------
+      var imClient = new ROS3D.InteractiveMarkerClient({
+              ros: ros,
+              tfClient: tfClient,
+              topic: '/simple_marker',
+              camera: viewer.camera,
+              rootObject: viewer.selectableObjects
+      });
+                // ----------------------- Setup the marker client. -----------------------
+
+      function send_topic(data) {
+        // fix
+        let publisher = new ROSLIB.Topic({
+            ros: ros,
+            name: '/roboAC/marker_node',
+            messageType: 'std_msgs/String'
+        });
+        let message = new ROSLIB.Message({
+            data: JSON.stringify(data)
+        });
+        publisher.publish(message);
+
+      }
 
 
+      async function clear_marker() {
+          send_topic({
+              mode: "clear"
+          })
+      }
+      async function init() {
+        await clear_marker();
 
+        send_topic({
+                mode: "display_robot"
+        })
+
+      }
+      init();
     </script>
 
 
@@ -380,4 +364,4 @@
 
 
 
-    <%} %>
+<%} %>

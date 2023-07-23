@@ -253,7 +253,7 @@
 
         </div>
 
-        <div class="col-xl-8 col-lg-12 col-12  ">
+        <div id="place_btn" class="col-xl-8 col-lg-12 col-12  ">
 
           <button id="btn_stop_point" type="button" class="btn  btn-default btn-lg">
             <img src="/images/icons/flag.svg" style="width: 2rem;">
@@ -270,9 +270,19 @@
             <p style="font-size: smaller;" class="m-0">charge</p>
           </button>
 
-          <button id="btn_reset" type="button" class="btn  btn-default btn-lg">
-            <img src="/images/icons/reset.svg" style="width: 2rem;">
-            <p style="font-size: smaller;" class="m-0">reset</p>
+          <button id="btn_nav" type="button" class="btn  btn-default btn-lg">
+            <img src="/images/distance2.png" style="width: 2rem;">
+            <p style="font-size: smaller;" class="m-0">Manual Navigation</p>
+          </button>
+
+          <button id="btn_init_pose" type="button" class="btn  btn-default btn-lg d-none">
+            <img src="/images/icons/flag.svg" style="width: 2rem;">
+            <p style="font-size: smaller;" class="m-0">init pose</p>
+          </button>
+
+          <button id="btn_stop" type="button" class="btn   btn-lg btn-danger d-none">
+            <img src="/images/traffic-signal.png" style="width: 2rem;">
+            <p style="font-size: smaller;" class="m-0">stop</p>
           </button>
 
           <div id="map"></div>
@@ -708,6 +718,8 @@
         ul.appendChild(li);
       }
 
+
+    
     </script>
 
     <!-- For ROS -->
@@ -741,7 +753,7 @@
         continuous: true
 
       });
-      console.log(gridClient);
+      // console.log(gridClient);
 
       var tfClient = new ROSLIB.TFClient({
         ros: ros,
@@ -784,6 +796,20 @@
         let publisher = new ROSLIB.Topic({
           ros: ros,
           name: '/roboAC/marker_node',
+          messageType: 'std_msgs/String'
+        });
+        
+        let message = new ROSLIB.Message({
+          data: JSON.stringify(data)
+        });
+        publisher.publish(message);
+
+      }
+      function send_nav(data) {
+        // fix
+        let publisher = new ROSLIB.Topic({
+          ros: ros,
+          name: '/roboAC/nav_node',
           messageType: 'std_msgs/String'
         });
         let message = new ROSLIB.Message({
@@ -886,10 +912,72 @@
       })
 
 
-      document.querySelector("#btn_reset").addEventListener('click', () => {
-        send_topic({
-          mode: "clear"
-        })
+      document.querySelector("#btn_nav").addEventListener('click', () => {
+        axios.get(`/waypoint_config?mode=manual_nav`)
+          .then(response => {
+              alert_fire('เปิด Mode Navigation ')
+          })
+          .catch(error => {
+            console.log(error);
+            alert_error('Error')
+          });
+        
+          send_topic({
+                mode: "display_robot"
+          })
+          const scanclient = new ROS3D.LaserScan({
+            ros: ros,
+            topic: '/scan',
+            tfClient: tfClient,
+            rootObject: viewer.scene,
+            material: { size: 0.09, color: 0xff00ff }
+          })
+
+          document.querySelector("#btn_init_pose").classList.remove('d-none')
+          
+          let one_click_init_pose = true
+          document.querySelector("#btn_init_pose").addEventListener('click', () => {
+              if(one_click_init_pose == false)return;
+              send_topic({
+                  mode: "init_pose",
+                  name: "init_pose"
+              })
+              let btn_confirm = document.createElement("button");
+              btn_confirm.innerHTML = "<br> Confirm";
+              btn_confirm.classList='btn  btn-default btn-lg'
+              btn_confirm.id = "btn_confirm"
+              
+
+              let img = document.createElement("img");
+              img.src = "/images/confirmation.png"
+              img.style = "width: 2rem;"
+
+              btn_confirm.insertBefore(img,btn_confirm.childNodes[0]);
+              // ค้นหา element ที่มี id เป็น "place_btn"
+              var element = document.getElementById("place_btn");
+              
+              // เพิ่มปุ่มลงใน element
+              element.insertBefore(btn_confirm, element.childNodes[element.childNodes.length-2]);
+              // element.insertBefore(btn_cancle, element.childNodes[3]);
+
+              document.querySelector("#btn_confirm").addEventListener('click', () => {
+                  send_topic({
+                      mode: "init_pose_confirm",
+                      name: "init_pose"
+                  })
+              })
+              one_click_init_pose = false
+          })
+
+          
+              document.querySelector("#btn_stop").classList.remove('d-none')
+              document.querySelector("#btn_stop").addEventListener('click',()=>{
+                send_nav({
+                  mode:"pause"
+                })
+              })
+              
+
 
       })
 
@@ -954,6 +1042,9 @@
       }
 
       init();
+
+
+      
 
 
     </script>
