@@ -65,8 +65,6 @@ exports.waypoint_config = (req, res) => {
             let myObj_waypoint = JSON.parse(req.query.waypoint);
             let myObj_chargepoint = JSON.parse(req.query.chargepoint);
 
-            // console.log("TEST1 " , myObj_waypoint);
-            // console.log("TEST2 " , myObj_chargepoint);
 
             // read file with path and mapName
             let data = fs.readFileSync(`${map_path}/${embed_mapName}.json`);

@@ -54,11 +54,6 @@ exports.navigation_config = (req, res) => {
                 embed_mapName=req.query.map_name
                 // Run map & navaigation
 
-                // node_manager.send_data({
-                //     topic:"navigation",
-                //     script:`roslaunch turtlebot3_navigation turtlebot3_navigation.launch`,
-                //     mode:"start"
-                // });
                 setTimeout(() => {
                     node_manager.send_data({
                         topic:"navigation1",
