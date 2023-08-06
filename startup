@@ -1,0 +1,16 @@
+#!/bin/bash
+
+#ROS LAUNCH
+gnome-terminal  -- bash -c "
+source /home/agv/Desktop/code/Package-AGV2/devel/setup.bash ;
+roslaunch manager_robot start.launch ;
+exec bash -i 
+"
+
+#Nodejs
+gnome-terminal  -- bash -c "
+cd /home/agv/Desktop/code/Package-AGV2/agv-web-v2;
+source /opt/ros/melodic/setup.bash
+/home/agv/.nvm/versions/node/v16.17.0/bin/node index.js;
+exec bash -i;
+"

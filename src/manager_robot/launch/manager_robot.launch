@@ -1,0 +1,7 @@
+<launch>
+  <node name="manager_node"   pkg="manager_robot"  type="manager_node.py" output="screen"/>
+  <node name="marker_node"   pkg="manager_robot"  type="marker_node.py" output="screen"/>
+  <node name="navigation_node"   pkg="manager_robot"  type="navigation_node.py" output="screen"/>
+</launch>
+
+
