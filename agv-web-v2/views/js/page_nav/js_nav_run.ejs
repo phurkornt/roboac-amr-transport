@@ -91,7 +91,7 @@
             mode: "clear"
         })
     }
-
+    
     async function init_marker() {
         let plan_waypoint = JSON.parse('<%-JSON.stringify(plan_waypoint)%>')
         console.log("My-test", plan_waypoint);
@@ -115,11 +115,28 @@
         }
         return parseInt(plan_waypoint.chargepoint.length) + parseInt(plan_waypoint.waypoint.length)
     }
-
+    function set_arrow_pose() {
+        myObj = imClient.interactiveMarkers;
+        for (i of plan_waypoint.waypoint) {
+          send_topic({
+            mode: "setInitPose",
+            name: i.name,
+            pose: i.pose
+          })
+        }
+        for (i of plan_waypoint.chargepoint) {
+          send_topic({
+            mode: "setInitPose",
+            name: i.name,
+            pose: i.pose
+          })
+        }
+      }
     async function init() {
         await clear_marker();
         let size = await init_marker();
-
+        set_arrow_pose();
+        
         send_topic({
                 mode: "display_robot"
         })

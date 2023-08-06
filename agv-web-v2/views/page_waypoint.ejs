@@ -285,9 +285,9 @@
             <p style="font-size: smaller;" class="m-0">stop</p>
           </button>
 
-          <button id="btn_init_pose_one" type="button" class="btn   btn-lg btn-warning ">
+          <button id="btn_init_pose_one" type="button" class="btn   btn-lg btn-warning d-none ">
             <!-- <img src="/images/traffic-signal.png" style="width: 2rem;"> -->
-            <p style="font-size: smaller;" class="m-0">init_pose_one</p>
+            <p style="font-size: smaller;" class="m-0 ">init_pose_one</p>
           </button>
 
           <div id="map"></div>
@@ -308,6 +308,7 @@
     <!-- For Page -->
     <script>
       let plan_waypoint = JSON.parse('<%-JSON.stringify(plan_waypoint)%>')
+
       function set_arrow_pose() {
         myObj = imClient.interactiveMarkers;
         for (i of plan_waypoint.waypoint) {
@@ -325,6 +326,7 @@
           })
         }
       }
+      
       function save_plan() {
         myObj = imClient.interactiveMarkers;
         let waypoint = [];
