@@ -53,7 +53,7 @@ exports.waypoint_config = (req, res) => {
 
                 node_manager.send_data({
                     topic:"slam",
-                    script:`rosrun map_server map_server /home/paul/agv/src/roboAC/manager/map/${embed_mapName}.yaml`,
+                    script:`rosrun map_server map_server /home/agv/Desktop/code/Package-AGV2/manager/map/${embed_mapName}.yaml`,
                     mode:"start"
                 });
                 activity_state.writeData(2);
@@ -100,7 +100,7 @@ exports.waypoint_config = (req, res) => {
 
             node_manager.send_data({
                 topic:"navigation1",
-                script:`roslaunch turtlebot3_navigation turtlebot3_navigation.launch`,
+                script:``,
                 mode:"stop"
             });
 
@@ -120,11 +120,23 @@ exports.waypoint_config = (req, res) => {
             outData = obj
             break        
         case 'manual_nav':
+            
+            setTimeout(() => {
+                node_manager.send_data({
+                    topic:"navigation1",
+                    script:`roslaunch /home/agv/Desktop/code/Package-AGV2/manager/nav3-dwa/turtlebot3_navigation.launch`,
+                    mode:"start"
+                });
+            }, 500);
+
             node_manager.send_data({
                 topic:"navigation1",
-                script:`roslaunch turtlebot3_navigation turtlebot3_navigation.launch`,
-                mode:"start"
+                script:`roslaunch /home/agv/Desktop/code/Package-AGV2/manager/nav3-dwa/turtlebot3_navigation.launch`,
+                mode:"stop"
             });
+
+
+            
             break        
     }
     res.send(outData);

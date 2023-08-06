@@ -57,19 +57,20 @@ exports.navigation_config = (req, res) => {
                 setTimeout(() => {
                     node_manager.send_data({
                         topic:"navigation1",
-                        script:`roslaunch turtlebot3_navigation turtlebot3_navigation.launch`,
+                        script:`roslaunch /home/agv/Desktop/code/Package-AGV2/manager/nav3-dwa/turtlebot3_navigation.launch`,
                         mode:"start"
                     });
                 }, 1000);
                 setTimeout(() => {
                     node_manager.send_data({
                         topic:"nav_map",
-                        script:`rosrun map_server map_server /home/paul/agv/src/roboAC/manager/map/${embed_mapName}.yaml`,
+                        script:`rosrun map_server map_server /home/agv/Desktop/code/Package-AGV2/manager/map/${embed_mapName}.yaml`,
                         mode:"start"
                     });
                 }, 500);
                 activity_state.writeData(3);
                 outData = 'OK'
+                console.log("OPEN n");
             }
             break        
         case 'run_plan':
@@ -88,7 +89,12 @@ exports.navigation_config = (req, res) => {
             outData = 'OK'
             break        
         case 'close':
-            
+            setTimeout(() => {
+                node_manager.send_data({
+                    topic:"navigation1",
+                    mode:"stop"
+                });
+            }, 500);
             node_manager.send_data({
                 topic:"nav_map",
                 mode:"stop"

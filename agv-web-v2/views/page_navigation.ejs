@@ -180,6 +180,7 @@
       </div>
 
       <script>
+        let plan_waypoint = JSON.parse('<%-JSON.stringify(plan_waypoint)%>')
         function my_test(mode){
           axios.get(`/navigation_nav?mode=${mode}`)
           .then(response => {

@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<launch>
+  	<node name="rplidarNode"          pkg="rplidar_ros"  type="rplidarNode" output="screen">
+  	<param name="scan_mode"           type="string"  value="Standard"/>
+  	<param name="serial_port"         type="string" value="/dev/ttyUSB0"/>
+  	<param name="serial_baudrate"     type="int"    value="115200"/><!--A1/A2 -->
+  	<param name="frame_id"            type="string" value="laser"/>
+  	<param name="inverted"            type="bool"   value="false"/>
+  	<param name="angle_compensate"    type="bool"   value="true"/>
+  	</node>
+
+	<include file="$(find urdf_sim)/launch/urdf_spawn.launch">
+      	<arg name="x" value="3.0" />
+      	<arg name="y" value="5.0" />
+      	<arg name="z" value="0.0" />
+      	<arg name="urdf_file" value="$(find urdf_sim)/urdf/mobile_urdf.urdf" />
+      	<arg name="robot_name" value="AMR" />
+  	</include>
+
+	<!-- Robot State -->
+
+  	<node pkg="tf" type="static_transform_publisher" name="laser_link" args="0.362 0 0.15 3.1414 0 0  base_link laser 100" />
+  	<!-- <node pkg="tf" type="static_transform_publisher" name="laser_link" args="0.362 0 0.15 3.1414 0 0  base_link laser 100" /> -->
+
+	<node name="serial_node"        pkg="rosserial_python"      type="serial_node.py">
+    	<param name="port"              type="string"               value="/dev/ttyACM0"/>
+    	<param name="baud"              type="int"                  value="57600"/>
+    </node>
+
+	<!--<node name="serial_node_dash"        pkg="rosserial_python"      type="serial_node.py">
+    	<param name="port"              type="string"               value="/dev/ttyUSB0"/>
+    	<param name="baud"              type="int"                  value="57600"/>
+    </node> -->
+	
+	<node pkg="gmapping" type="slam_gmapping" name="kamu_robotu_slam_gmapping" output="screen">
+
+		<param name="scan" type="string" value="scan"/>
+		<param name="odom_frame" type="string" value="odom"/>
+		<param name="base_frame" type="string" value="base_link"/>
+		<param name="map_frame"  value="map"/>	
+
+		
+		<param name="xmin" value="1"/>
+		<param name="ymin" value="1"/>
+		<param name="xmax" value="10"/>
+		<param name="ymax" value="10"/>
+
+		<!-- <param name="maxUrange " value="250"/> -->
+
+
+	</node>
+
+
+
+	<node name="odom_imu_with_imu" pkg="robot_odom" type="odom_imu_v2"/>
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(env HOME)/agv/config/rviz_config.rviz"/>	
+	<node name="robot_pose_publisher" pkg="robot_pose_publisher" type="robot_pose_publisher" />	
+  	<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
+	
+</launch>

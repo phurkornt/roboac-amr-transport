@@ -124,6 +124,11 @@
                 mode: "display_robot"
         })
 
+        send_topic({
+                mode: "init_first_pose",
+                pose: plan_waypoint.waypoint[0].pose
+        })
+        console.log("TEST" , plan_waypoint.waypoint[0].pose);
         setTimeout(() => {
           if (Object.keys(imClient.interactiveMarkers).length < size) {
             location.reload();

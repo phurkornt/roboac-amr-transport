@@ -285,6 +285,11 @@
             <p style="font-size: smaller;" class="m-0">stop</p>
           </button>
 
+          <button id="btn_init_pose_one" type="button" class="btn   btn-lg btn-warning ">
+            <!-- <img src="/images/traffic-signal.png" style="width: 2rem;"> -->
+            <p style="font-size: smaller;" class="m-0">init_pose_one</p>
+          </button>
+
           <div id="map"></div>
 
 
@@ -981,6 +986,12 @@
 
       })
 
+      document.querySelector("#btn_init_pose_one").addEventListener('click', () => {
+        send_topic({
+                mode: "init_first_pose",
+                pose: plan_waypoint.waypoint[0].pose
+        })
+      })
 
 
       async function clear_marker() {

@@ -31,7 +31,7 @@ exports.slam_config = (req, res) => {
             if( status == 0){
                 node_manager.send_data({
                     topic:"slam",
-                    script:`roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=gmapping`,
+                    script:`roslaunch /home/agv/Desktop/code/Package-AGV2/launch/createmap.launch`,
                     mode:"start"
                 });
                 activity_state.writeData(1);
@@ -42,7 +42,7 @@ exports.slam_config = (req, res) => {
             mapname = req.query.map_name;
             node_manager.send_data({
                 topic:"save_map",
-                script:`rosrun map_server map_saver -f /home/paul/agv/src/roboAC/manager/map/${mapname}`,
+                script:`rosrun map_server map_saver -f /home/agv/Desktop/code/Package-AGV2/manager/map/${mapname}`,
                 mode:"once"
             });
             mypath = path.join(__dirname , '..' ,'data','waypoint')

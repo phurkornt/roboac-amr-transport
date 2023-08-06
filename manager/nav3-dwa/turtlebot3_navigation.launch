@@ -1,0 +1,81 @@
+<launch>
+  <!-- Arguments -->
+  <!-- <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/> -->
+  <!-- <arg name="map_file" default="$(find turtlebot3_navigation)/maps/map.yaml"/> -->
+  <!-- <arg name="open_rviz" default="true"/> -->
+
+	<!-- Lidar run node --> 
+  	<node name="rplidarNode"          pkg="rplidar_ros"  type="rplidarNode" output="screen">
+		<param name="scan_mode"           type="string"  value="Standard"/>
+		<param name="serial_port"         type="string" value="/dev/ttyUSB0"/>
+		<param name="serial_baudrate"     type="int"    value="115200"/><!--A1/A2 -->
+		<param name="frame_id"            type="string" value="laser"/>
+		<param name="inverted"            type="bool"   value="false"/>
+		<param name="angle_compensate"    type="bool"   value="true"/>
+  	</node>
+
+	<include file="$(find urdf_sim)/launch/urdf_spawn.launch">
+      	<arg name="x" value="3.0" />
+      	<arg name="y" value="5.0" />
+      	<arg name="z" value="0.0" />
+      	<arg name="urdf_file" value="$(find urdf_sim)/urdf/mobile_urdf.urdf" />
+      	<arg name="robot_name" value="AMR" />
+  	</include>
+
+
+	<!-- Robot State -->
+  	<!-- <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/> -->
+
+	<!-- tf laser base_link --> 
+	<!-- <node pkg="tf" type="static_transform_publisher" name="laser_link" args="0.362 0 0.07 -3.1414 0 0  base_link laser 10" /> -->
+	<node pkg="tf" type="static_transform_publisher" name="laser_link" args="0.362 0 0.15 3.1414 0 0  base_link laser 100" />
+
+	<!-- for /cmd_wheel arduino --> 
+	<node name="serial_node_twis"        pkg="rosserial_python"      type="serial_node.py">
+    		<param name="port"              type="string"               value="/dev/ttyACM0"/>
+    		<param name="baud"              type="int"                  value="9600"/>
+    	</node>
+   <arg name="scan_topic"     default="scan"/>
+  	<arg name="initial_pose_x" default="0.0"/>
+  	<arg name="initial_pose_y" default="0.0"/>
+  	<arg name="initial_pose_a" default="0.0"/>
+
+
+  <arg name="move_forward_only" default="false"/>
+
+  <!-- Turtlebot3 -->
+  <!-- <include file="$(find turtlebot3_bringup)/launch/turtlebot3_remote.launch">
+    <arg name="model" value="$(arg model)" />
+  </include> -->
+
+  <!-- Map server -->
+  <!-- <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/> -->
+
+  <!-- AMCL -->
+  <include file="/home/agv/Desktop/code/Package-AGV2/manager/nav3-dwa/amcl.launch"/>
+
+  <!-- move_base -->
+
+
+  <include file="/home/agv/Desktop/code/Package-AGV2/manager/nav3-dwa/move_base.launch">
+    <!-- <arg name="model" value="$(arg model)" /> -->
+    <arg name="move_forward_only" value="$(arg move_forward_only)"/>
+  </include>
+
+
+
+  <arg name="cmd_vel_topic" default="/cmd_vel" />
+
+	<arg name="odom_topic" default="odom" />
+
+	<node name="odom_imu_with_imu" pkg="robot_odom" type="odom_imu_v2"/>
+
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(env HOME)/agv/config/rviz_config_nav.rviz"/>
+		<node name="robot_pose_publisher" pkg="robot_pose_publisher" type="robot_pose_publisher" />	
+  	<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
+  <!-- rviz -->
+  <!-- <group if="$(arg open_rviz)"> 
+    <node pkg="rviz" type="rviz" name="rviz" required="true"
+          args="-d $(find turtlebot3_navigation)/rviz/turtlebot3_navigation.rviz"/>
+  </group> -->
+</launch>

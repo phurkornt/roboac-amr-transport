@@ -14,8 +14,7 @@ import json
 
 server = ''
 
-init_pose_global = {'position':{},'orientation':{}}
-
+init_pose_global = {"position":{"x":0,"y":0,"z":0.0},"orientation":{"x":0,"y":0,"z":0,"w":0}}
 def processFeedback2(feedback):
     p = feedback.pose
     # server.setPose('1',p)
@@ -25,6 +24,7 @@ def callback_robot_pose(feedback):
     """
         set robot pose real time 
     """
+    global server
     server.setPose('robot_pose',feedback)
     server.applyChanges()
     # rospy.loginfo(rospy.get_caller_id() + "I heard %s", feedback)
@@ -135,6 +135,24 @@ def init_get_data_type():
     initpose.pose.pose.orientation.y = init_pose_global["orientation"]["y"]
     initpose.pose.pose.orientation.z = init_pose_global["orientation"]["z"] 
     return initpose
+
+def init_first_pose( position , orientation):
+    """
+        Create data type msg.PoseWithCovarianceStamped
+    """
+    initpose = msg.PoseWithCovarianceStamped()
+    # initpose.header.stamp = rospy.get_rostime()
+    initpose.header.frame_id = "map"
+    
+    initpose.pose.pose.position.x = position["x"]
+    initpose.pose.pose.position.y = position["y"]
+    initpose.pose.pose.orientation.w = orientation["w"]
+    initpose.pose.pose.orientation.x = orientation["x"]
+    initpose.pose.pose.orientation.y = orientation["y"]
+    initpose.pose.pose.orientation.z = orientation["z"] 
+    return initpose
+
+    
 def callback_manage(data):
     mes =  data.data
     rospy.loginfo(mes)
@@ -187,6 +205,20 @@ def callback_manage(data):
     elif json_data['mode'] == "init_pose_confirm":
         pub = rospy.Publisher('/initialpose', msg.PoseWithCovarianceStamped, queue_size=10)
         topic_msg = init_get_data_type()
+        rospy.loginfo(topic_msg)
+        pub.publish(topic_msg)
+
+    elif json_data['mode'] == "init_first_pose":
+        pub = rospy.Publisher('/initialpose', msg.PoseWithCovarianceStamped, queue_size=10)
+        position = {"x":0,"y":0,"z":0.01}
+        orientation = {"x":0,"y":0,"z":0,"w":1}
+
+        if 'pose' in json_data:
+            pose = json_data['pose']
+            position = pose['position']
+            orientation = pose['orientation']
+        topic_msg = init_first_pose(position,orientation)
+
         rospy.loginfo(topic_msg)
         pub.publish(topic_msg)
 
