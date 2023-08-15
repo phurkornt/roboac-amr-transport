@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# ชื่อของเครือข่าย WiFi ที่ต้องการเชื่อมต่อ
+SSID="TP-Link_2.4GHz_2580CA"
+
+# รหัสผ่านของเครือข่าย WiFi
+PASSWORD="roboac22"
+
+# จำนวนครั้งที่จะทำการเชื่อมต่อใหม่ (สามารถเปลี่ยนค่าตามต้องการ)
+MAX_ATTEMPTS=20
+
+# นับจำนวนครั้งที่ทำการเชื่อมต่อ
+attempts=0
+
+# วนลูปจนกว่าจะเชื่อมต่อสำเร็จหรือถึงจำนวนครั้งที่กำหนด
+while [ $attempts -lt $MAX_ATTEMPTS ]; do
+    sudo nmcli device wifi connect "$SSID" password "$PASSWORD"
+
+    if [ $? -eq 0 ]; then
+        echo "เชื่อมต่อ WiFi $SSID สำเร็จแล้ว"
+	echo "Conect" >> ./log.log 
+        break
+    else
+        echo "ไม่สามารถเชื่อมต่อ WiFi $SSID ได้ กำลังลองใหม่..."
+	echo "Error" >> ./log.log
+        attempts=$((attempts + 1))
+        sleep 10  # หน่วงเวลาก่อนที่จะลองใหม่
+    fi
+done
+
+if [ $attempts -eq $MAX_ATTEMPTS ]; then
+    echo "ไม่สามารถเชื่อมต่อ WiFi $SSID ได้หลังจากลองเชื่อมต่อ $MAX_ATTEMPTS ครั้ง"
+fi
+

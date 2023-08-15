@@ -12,8 +12,8 @@
   <!-- Google Font: Source Sans Pro -->
   <!-- <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400&display=swap" rel="stylesheet"> -->
 
-  <link href="../fonts/nato-font/css.css" rel="stylesheet">
-  <link href="../fonts/nato-font/css2.css" rel="stylesheet">
+  <!-- <link href="/fonts/nato-font/css.css" rel="stylesheet">
+  <link href="/fonts/nato-font/css2.css" rel="stylesheet"> -->
 
   
   <!-- <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400&display=swap" rel="stylesheet">
@@ -86,9 +86,17 @@
 
 
   <style>
-    body{
-      font-family: 'Noto Sans Thai', sans-serif;
-    }
+     @font-face {
+        font-family: 'Noto Sans Thai';
+        font-style: normal;
+        font-weight: 400;
+        src: url('/fonts/NotoSansThai-VariableFont_wdth,wght.ttf') format('truetype');
+      }
+
+        /* Use the font in your CSS */
+      body {
+        font-family: 'Noto Sans Thai';
+      }
   </style>
 </head>
 
@@ -128,13 +136,13 @@
   
         <li class="nav-item">
           <a class="nav-link " role="button">
-           Batterry 90%
+           <!-- Batterry 90% -->
           </a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link " role="button">
-            <%= activity_state.activity %>
+          <a class="nav-link " style="font-weight: bolder;" role="button">
+            Status : <%= activity_state.activity %>
           </a>
         </li>
 
@@ -177,23 +185,30 @@
             <li class="nav-item menu-open">
 
               <li class="nav-item">
-                <a href="/slam" class="nav-link">
-                    <img src="/images/maps-c.png" style="width: 1.65rem;">
-                    <p style="font-size: larger;">ระบบสร้างแผนที่</p>
+                <a href="/" class="nav-link">
+                    <img src="/images/logo.png" style="width: 1.3rem;">
+                    <p style="font-size: larger; padding-left: 0.5rem; ">หน้าหลัก</p>
                   </a>
-                </li>
+              </li>
 
-                <li class="nav-item">
+              <li class="nav-item">
+                <a href="/slam" class="nav-link">
+                    <img src="/images/maps-c.png" style="width: 1.3rem;">
+                    <p style="font-size: larger; padding-left: 0.5rem; ">ระบบสร้างแผนที่</p>
+                  </a>
+              </li>
+
+              <li class="nav-item">
                   <a href="/waypoint" class="nav-link">
-                    <img src="/images/route-c.png" style="width: 1.65rem;">
-                    <p style="font-size: larger;">ระบบจัดการการนำทาง</p>
+                    <img src="/images/route-c.png" style="width: 1.3rem;">
+                    <p style="font-size: larger; padding-left: 0.5rem; ">ระบบจัดการการนำทาง</p>
                   </a>
               </li>
               
               <li class="nav-item">
                 <a href="/navigation" class="nav-link">
-                  <img src="/images/navigation-c.png" style="width: 1.65rem;">
-                    <p style="font-size: larger;">ระบบการนำทาง</p>
+                  <img src="/images/navigation-c.png" style="width: 1.3rem;">
+                    <p style="font-size: larger; padding-left: 0.5rem; ">ระบบการนำทาง</p>
                 </a>
               </li>
                 
