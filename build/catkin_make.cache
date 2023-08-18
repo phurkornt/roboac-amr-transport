@@ -1,2 +1,2 @@
 manager_robot
--DCATKIN_DEVEL_PREFIX=/home/agv/Desktop/code/Package-AGV2/devel -DCMAKE_INSTALL_PREFIX=/home/agv/Desktop/code/Package-AGV2/install -G Unix Makefiles
+-DCATKIN_DEVEL_PREFIX=/home/paul/Desktop/Package-AGV/devel -DCMAKE_INSTALL_PREFIX=/home/paul/Desktop/Package-AGV/install -G Unix Makefiles

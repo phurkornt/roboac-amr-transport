@@ -145,3 +145,19 @@ exports.navigation_nav = (req, res) => {
     res.send("OK")
     
 };
+
+
+
+// ----------------------------- plan_delete -----------------------------
+exports.plan_delete = (req, res) => {
+    let map_name = req.query.map_name
+    console.log(map_name);
+    // fs.unlink(`${map_path}/${map_name}.json`, function (err) {
+    //     if (err) {
+    //         res.send("Error");
+    //         throw err;
+    //     }
+    //     console.log('File deleted! : ' ,map_name);
+    // });
+    res.send("OK");
+};

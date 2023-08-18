@@ -1,1 +1,0 @@
-{"map":"G","plan":{"GG":{"waypoint":[{"name":"1","pose":{"position":{"x":0.6254305076533431,"y":0.5722163782808174,"z":0.01},"orientation":{"x":0,"y":0,"z":0,"w":1}},"type":"stop_point"}],"chargepoint":[{"name":"123","pose":{"position":{"x":0.6757583388607946,"y":1.6717689765039672,"z":0.01},"orientation":{"x":0,"y":0,"z":0,"w":1}},"type":"charge"}]}}}

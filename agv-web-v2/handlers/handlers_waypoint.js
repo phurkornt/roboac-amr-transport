@@ -141,3 +141,33 @@ exports.waypoint_config = (req, res) => {
     }
     res.send(outData);
 };
+
+
+
+// ----------------------------- map_delete -----------------------------
+exports.map_delete = (req, res) => {
+    let map_name = req.query.map_name
+    let plan_name = req.query.plan_name
+    let respon = "Error"
+    console.log(map_name , plan_name);
+    if(plan_name != 'none'){
+
+        let data = fs.readFileSync(`${map_path}/${map_name}.json`);
+        let myData = JSON.parse(data);
+        delete myData.plan[`${plan_name}`]
+        const jsonString = JSON.stringify(myData);
+        fs.writeFileSync(`${map_path}/${map_name}.json`, jsonString);
+
+        respon = "OK Plan"
+    }else {
+        fs.unlink(`${map_path}/${map_name}.json`, function (err) {
+            if (err) {
+                res.send("Error");
+                throw err;
+            }
+            console.log('File deleted! : ' ,map_name);
+        });
+        respon = "OK Map"
+    }
+    res.send(respon);
+};

@@ -1,17 +1,21 @@
-const fs = require('fs');
-const path = require('path');
+// const fs = require('fs');
+// const path = require('path');
 
 
-mypath = path.join(__dirname , '..' ,'data','waypoint')
+// mypath = path.join(__dirname , '..' ,'data','waypoint')
 
-let myObj = JSON.parse(`[{"name":"1","pose":{"position":{"x":0,"y":0,"z":0.01},"orientation":{"x":0,"y":0,"z":0,"w":1}}},{"name":"2","pose":{"position":{"x":0,"y":0,"z":0.01},"orientation":{"x":0,"y":0,"z":0,"w":1}}}]`);
-console.log(myObj);
+// let myObj = JSON.parse(`[{"name":"1","pose":{"position":{"x":0,"y":0,"z":0.01},"orientation":{"x":0,"y":0,"z":0,"w":1}}},{"name":"2","pose":{"position":{"x":0,"y":0,"z":0.01},"orientation":{"x":0,"y":0,"z":0,"w":1}}}]`);
+// console.log(myObj);
 
 
-const jsonString = '[{"name":"1","pose":{"position":{"x":0,"y":0,"z":0.01},"orientation":{"x":0,"y":0,"z":0,"w":1}}},{"name":"2","pose":{"position":{"x":0,"y":0,"z":0.01},"orientation":{"x":0,"y":0,"z":0,"w":1}}}]';
-const obj = JSON.parse(jsonString);
+// const jsonString = '[{"name":"1","pose":{"position":{"x":0,"y":0,"z":0.01},"orientation":{"x":0,"y":0,"z":0,"w":1}}},{"name":"2","pose":{"position":{"x":0,"y":0,"z":0.01},"orientation":{"x":0,"y":0,"z":0,"w":1}}}]';
+// const obj = JSON.parse(jsonString);
 
-for(let i of obj){
-    console.log(i);
-}
+// for(let i of obj){
+//     console.log(i);
+// }
+b= {a:"g",b:"gg"}
+console.log(b);
+delete b['a']
+console.log(b);
 // console.log(myObj);

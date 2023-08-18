@@ -30,7 +30,7 @@
           <div class="form-group">
 
             <label>ชื่อแผนที่</label>
-            <select id="map_name" class="form-control select2" style="width: 100%;" onchange="getPlan()">
+            <select id="map_name" class="form-control select2" style="width: 100%;" onchange="getPlan('plan_name')">
 
               <option selected="selected" value="">เลือกแผนที่</option>
 
@@ -47,7 +47,7 @@
             <br>
             <label class="">ชื่อPlan</label>
             <select id="plan_name" class="form-control select2" style="width: 100%;">
-              <option value="create">สร้างPlanใหม่</option>
+              <option value="none">สร้างPlanใหม่</option>
             </select>
           </div>
 
@@ -62,13 +62,88 @@
   </div>
 
 
-  <script>
+  <!-- ----------------------------------- -->
+  <div class="container ">
+    <br>
+    <div class="card  mx-2">
+      <div class="card-body ">
+        <h4 class=" ">ลบแผนที่ เเละ plan</h4>
+        <hr>
 
-    function getPlan() {
-      map_name = document.querySelector("#map_name").value
+        <div class="container">
+          <div class="form-group">
+
+            <label>ชื่อแผนที่</label>
+            <select id="map_name_del" class="form-control select2" style="width: 100%;" onchange="getPlan('plan_name_del')">
+
+              <option selected="selected" value="">เลือกแผนที่</option>
+
+              <% for(let i of map_files){%>
+
+                <option value="<%= i.split('.json')[0] %>">
+                  <%= i.split('.json')[0] %>
+                </option>
+
+                <% } %>
+
+            </select>
+
+            <br>
+            
+            <label class="">ชื่อPlan</label>
+            <select id="plan_name_del" class="form-control select2" style="width: 100%;">
+              <option value="none">ลบเเค่แผนที่</option>
+            </select>
+
+          </div>
+
+          <div class="mt-4">
+            <button onclick="delete_map()" type="button"
+              class="btn p-4 btn-danger btn-lg">ยืนยันการลบ
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    function delete_map(){
+      let map_name = document.querySelector('#map_name_del').value.trim()
+      let plan_name = document.querySelector('#plan_name_del').value.trim()
+      if (map_name == "") {
+        alert_error("กรุณาเลือกเเผนที่");
+        return
+      }
+      console.log(map_name);
+      axios.delete(`/map_delete?map_name=${map_name}&plan_name=${plan_name}`)
+        .then(response => {
+          if (response.data == 'OK Map') {
+            alert_fire('ลบแผนที่เสร็จเเล้ว')
+            // Action to UI
+            document.querySelector('#map_name_del').querySelector(`option[value=${map_name}]`).remove()
+            
+          }else if (response.data == 'OK Plan') {
+            alert_fire('ลบPlanเสร็จเเล้ว')
+            document.querySelector('#plan_name_del').querySelector(`option[value=${plan_name}]`).remove()
+            // Action to UI
+            // document.querySelector('#map_name_del').querySelector(`option[value=${map_name}]`).remove()
+          }
+        })
+        .catch(error => {
+
+          // console.log(error);
+          alert_error('Error')
+        });
+    }
+    function getPlan(plan) {
+      
+      map_name = document.querySelector(`#${plan}`).parentElement.querySelector("select").value
       // Clear value in plan_name
-      let tag_plan_name = document.querySelector("#plan_name")
-      while (tag_plan_name.lastElementChild.value != 'create') {
+      let tag_plan_name = document.querySelector(`#${plan}`)
+      while (tag_plan_name.lastElementChild.value != 'none') {
         tag_plan_name.removeChild(tag_plan_name.lastElementChild);
       }
 
@@ -79,7 +154,7 @@
               alert_error('Error')
             } else {
 
-              const select = document.getElementById('plan_name');
+              const select = document.getElementById(plan);
               for (let i in response.data.plan) {
                 // console.log("LOOP , ",i);
                 const optionEl = document.createElement('option');
