@@ -55,7 +55,7 @@
 	<node name="odom_imu_with_imu" pkg="robot_odom" type="odom_imu_v2"/>
 	<node name="rviz" pkg="rviz" type="rviz" args="-d $(env HOME)/agv/config/rviz_config.rviz"/>	
 	
-	<node name="robot_pose_publisher" pkg="robot_pose_publisher" type="robot_pose_publisher" />	
+	<node name="robot_pose_publisher" pkg="robot_pose_publisher" type="robot_pose_publisher" />
   	<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
 	
 </launch>

@@ -20,7 +20,9 @@
       	<arg name="urdf_file" value="$(find urdf_sim)/urdf/mobile_urdf.urdf" />
       	<arg name="robot_name" value="AMR" />
   	</include>
+	
 
+	<node name="robot_pose_publisher" pkg="robot_pose_publisher" type="robot_pose_publisher" />	
 
 	<!-- Robot State -->
   	<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>

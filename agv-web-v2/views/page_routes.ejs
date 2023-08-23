@@ -1,3 +1,4 @@
+<script src="/axios/axios.min.js"></script>
 
 <br>
 <div class="container">
@@ -27,11 +28,74 @@
         </div>
         <div class="col-md-3"></div>
     </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="card text-center">
+                    <div class="card-body ">
+                        <h4 style="font-size: 2rem;">Restart คอมพิวเตอร์</h4><hr>
+                        <button onclick="restart_computer()" type="button" class="btn mt-1 p-4 btn-outline-dark btn-lg">
+                            <p style="padding: 0.1rem 6rem; margin: 0;">ยืนยัน</p>
+                        </button>
+                    </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
 </div>
 
 
 <script>
-    function close_computer(){
+    function  close_computer(){
         // Do something
+        Swal.fire({
+            title: 'ยืนยันการปิดระบบ',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'ยืนยัน',
+            cancelButtonText: 'ยกเลิก'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                axios.delete(`/system?mode=shutdown`)
+                    .then(response => {
+                    if (response.data == 'OK') {
+                        alert_fire('Shutdown')
+                    }
+                    })
+                    .catch(error => {
+                    alert_error('Error')
+                });
+            }
+        })
+
+        
+    }
+    function  restart_computer(){
+        // Do something
+        Swal.fire({
+            title: 'ยืนยันการ Restart ระบบ',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'ยืนยัน',
+            cancelButtonText: 'ยกเลิก'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                axios.delete(`/system?mode=restart`)
+                    .then(response => {
+                    if (response.data == 'OK') {
+                        alert_fire('Restart')
+                    }
+                    })
+                    .catch(error => {
+                    alert_error('Error')
+                });
+            }
+        })
+
+        
     }
 </script>

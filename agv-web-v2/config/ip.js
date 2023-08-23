@@ -15,6 +15,6 @@ for (const name of Object.keys(interfaces)) {
 // console.log(addresses);
 // robot_address = addresses.length == 0 ? '127.0.0.1' : addresses[1]
 // robot_address = "192.168.0.100"
-robot_address = "192.168.1.2"
+robot_address = "192.168.0.100"
 console.log(robot_address);
 module.exports.address = robot_address

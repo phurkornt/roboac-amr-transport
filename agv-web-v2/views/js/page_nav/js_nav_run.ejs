@@ -141,10 +141,11 @@
                 mode: "display_robot"
         })
 
-        send_topic({
-                mode: "init_first_pose",
-                pose: plan_waypoint.waypoint[0].pose
-        })
+        // send_topic({
+        //         mode: "init_first_pose",
+        //         pose: plan_waypoint.waypoint[0].pose
+        // })
+
         console.log("TEST" , plan_waypoint.waypoint[0].pose);
         setTimeout(() => {
           if (Object.keys(imClient.interactiveMarkers).length < size) {
@@ -168,11 +169,16 @@
           console.log('Received message on ' + listener.name + ': ' + message.data);
           num = Number.parseInt(message.data);
           dt = document.querySelectorAll('.status');
-
-        //   console.log(dt[0].c);
-          for (i=0;i< num ;i++){
+          if(num == 0){
+            for(let i =0;i<dt.length ;i++){
+              const imageElement = dt[i].querySelector("img");
+              imageElement.src = "/images/record.png";
+            }
+          }else{
+            for (i=0;i< num ;i++){
                 const imageElement = dt[i].querySelector("img");
                 imageElement.src = "/images/new-moon.png";
+            }
           }
 
           listener.unsubscribe();

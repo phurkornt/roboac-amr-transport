@@ -42,6 +42,11 @@ now_pose = {
 # --------------- GLOBAL VARIABLE ---------------
 
 
+def callback_button(data):
+    global waitStep
+    json_data = json.loads(data.data)
+    if json_data['button'] == "1":
+        waitStep['isStoppoint'] = True
 
 def callback_robot_pose(data):
     global pose , index ,waitStep , now_pose
@@ -69,6 +74,8 @@ def callback_test(data):
     rospy.loginfo(json_data)
     
     if json_data['mode'] == "set":
+        
+
         waypoint_pose = json_data['waypoint']
         charge_pose = json_data['chargepoint']
         pose = waypoint_pose
@@ -188,6 +195,7 @@ def talker():
                     index+=1
                     selece_mode=''
                     trick_run = True
+                    waitStep['isStoppoint'] = False
         elif selece_mode == "pass_point" :
             if isStop == True:selece_mode=''
             if waitStep['isPasspoint'] == True:
@@ -201,8 +209,8 @@ def talker():
                 selece_mode=''
                 trick_run = True
 
-        rospy.loginfo(client.get_goal_status_text())
-        rospy.loginfo(str(len(pose))+" INDEX : "+str(index))
+        # rospy.loginfo(client.get_goal_status_text())
+        # rospy.loginfo(str(len(pose))+" INDEX : "+str(index))
 
         pub = rospy.Publisher('/roboAC/robot_pose_status', String, queue_size=10)
         hello_str = str(index)
@@ -217,7 +225,7 @@ if __name__ == '__main__':
     rospy.init_node('movebase_client_py')
     rospy.Subscriber("/roboAC/nav_node", String, callback_test)
     rospy.Subscriber("/robot_pose", Pose, callback_robot_pose)
-   
+    rospy.Subscriber("/ard_msg", String, callback_button)
     talker()
     
     

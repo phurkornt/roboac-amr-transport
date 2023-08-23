@@ -95,12 +95,13 @@
         })
 
         let btn_confirm = document.createElement("button");
-        btn_confirm.innerHTML = "<br> Confirm";
+        btn_confirm.innerHTML = "<br> confirm";
         btn_confirm.classList='btn  btn-default btn-lg'
+        btn_confirm.style.paddingTop='5px'
         btn_confirm.id = "btn_confirm"
         let img = document.createElement("img");
         img.src = "/images/confirmation.png"
-        img.style = "width: 2rem;"
+        img.style = "width: 1.7rem;"
 
         btn_confirm.insertBefore(img,btn_confirm.childNodes[0]);
         // ค้นหา element ที่มี id เป็น "place_btn"
@@ -110,12 +111,18 @@
         element.insertBefore(btn_confirm, element.childNodes[2]);
         // element.insertBefore(btn_cancle, element.childNodes[3]);
 
-        document.querySelector("#btn_confirm").addEventListener('click', () => {
+        btn_confirm.addEventListener('click', () => {
             send_topic({
                 mode: "init_pose_confirm",
                 name: "init_pose"
             })
+            Swal.fire({
+                icon: 'success',
+                title: 'Success'
+            })
         })
+
+        // })
         one_click_init_pose = false
     })
     
@@ -159,10 +166,14 @@
     async function init() {
         await clear_marker();
         let size = await init_marker();
+
     }
-
+    
     clear_marker();
-
+    send_topic({
+        mode: "display_robot"
+    })
+    
 
  
 </script>

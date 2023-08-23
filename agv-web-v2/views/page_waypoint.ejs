@@ -186,8 +186,9 @@
         return
       }
 
-      if (plan_name == "create") {
-        let value = await Swal.fire({
+      if (plan_name == "none") {
+
+        await Swal.fire({
           title: 'ใส่ชื่อของ plan',
           input: 'text',
           inputAttributes: {
@@ -196,35 +197,40 @@
           showCancelButton: true,
           confirmButtonText: 'ยืนยัน',
           cancelButtonText: 'ยกเลิก',
+        }).then((result) => {
+            if (result.isConfirmed) {
+              plan_name = result.value
+            }
         })
-        if (value.isConfirmed) {
-          is_new = true;
-          plan_name = value.value.trim();
-        }
+
         // console.log(value);
       }
+      if (plan_name != "none" && plan_name !="") {
+        axios.get(`/waypoint_config?mode=open&map_name=${map_name}&plan_name=${plan_name}&is_new=${is_new}`)
+          .then(response => {
+            if (response.data == 'OK') {
+              alert_fire('ระบบกำลังเปิดใช้งาน')
+              setTimeout(() => {
+                location.reload();
+              }, 1500);
+            }
+            console.log(response.data);
+          })
+          .catch(error => {
 
-      axios.get(`/waypoint_config?mode=open&map_name=${map_name}&plan_name=${plan_name}&is_new=${is_new}`)
-        .then(response => {
-          if (response.data == 'OK') {
-            alert_fire('ระบบกำลังเปิดใช้งาน')
-            setTimeout(() => {
-              location.reload();
-            }, 1500);
-          }
-          console.log(response.data);
-        })
-        .catch(error => {
+            console.log(error);
+            alert_error('Error')
+          });
+      }
 
-          console.log(error);
-          alert_error('Error')
-        });
+
 
     }
 
   </script>
 
-
+  <br>
+  <br>
 
   <%}else{%>
 
@@ -995,14 +1001,27 @@
 
 
       document.querySelector("#btn_nav").addEventListener('click', () => {
-        axios.get(`/waypoint_config?mode=manual_nav`)
+
+        axios.get(`/waypoint_config?mode=isOpen_manual_nav`)
           .then(response => {
-              alert_fire('เปิด Mode Navigation ')
+            console.log(response.data);
+            if(response.data == false){
+              axios.get(`/waypoint_config?mode=manual_nav`)
+                .then(response => {
+                    alert_fire('เปิด Mode Navigation ')
+                })
+                .catch(error => {
+                  console.log(error);
+                  alert_error('Error')
+                });
+            }
+              // alert_fire('เปิด Mode Navigation ')
           })
           .catch(error => {
             console.log(error);
             alert_error('Error')
-          });
+        });
+
         
           send_topic({
                 mode: "display_robot"
@@ -1025,14 +1044,15 @@
                   name: "init_pose"
               })
               let btn_confirm = document.createElement("button");
-              btn_confirm.innerHTML = "<br> Confirm";
+              btn_confirm.innerHTML = "<br> confirm";
               btn_confirm.classList='btn  btn-default btn-lg'
+              btn_confirm.style.paddingTop='5px'
               btn_confirm.id = "btn_confirm"
               
 
               let img = document.createElement("img");
               img.src = "/images/confirmation.png"
-              img.style = "width: 2rem;"
+              img.style = "width: 1.7rem;"
 
               btn_confirm.insertBefore(img,btn_confirm.childNodes[0]);
               // ค้นหา element ที่มี id เป็น "place_btn"
@@ -1042,10 +1062,14 @@
               element.insertBefore(btn_confirm, element.childNodes[element.childNodes.length-2]);
               // element.insertBefore(btn_cancle, element.childNodes[3]);
 
-              document.querySelector("#btn_confirm").addEventListener('click', () => {
+              btn_confirm.addEventListener('click', () => {
                   send_topic({
                       mode: "init_pose_confirm",
                       name: "init_pose"
+                  })
+                  Swal.fire({
+                      icon: 'success',
+                      title: 'Success'
                   })
               })
               one_click_init_pose = false

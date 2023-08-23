@@ -10,6 +10,7 @@ const router = express.Router();
 
 
 router.get('/', route_handlers.route);
+router.delete('/system', route_handlers.routeShutdown);
 
 router.get('/slam', slam_handlers.slam);
 router.get('/slam_config', slam_handlers.slam_config);

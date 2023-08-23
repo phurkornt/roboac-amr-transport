@@ -38,6 +38,8 @@ exports.waypoint = (req, res) => {
 };
 
 // open { mode: 'open', map_name: 'Tetsna2', plan_name: 'hello' }
+
+isOpen_manual_nav = false;
 exports.waypoint_config = (req, res) => {
     console.log("open",req.query);
     let status = activity_state.getData().status;
@@ -103,7 +105,7 @@ exports.waypoint_config = (req, res) => {
                 script:``,
                 mode:"stop"
             });
-
+            isOpen_manual_nav = false;
             outData = 'OK'
             break        
         case 'getPlan':
@@ -120,7 +122,8 @@ exports.waypoint_config = (req, res) => {
             outData = obj
             break        
         case 'manual_nav':
-            
+
+            isOpen_manual_nav = true;
             setTimeout(() => {
                 node_manager.send_data({
                     topic:"navigation1",
@@ -131,13 +134,16 @@ exports.waypoint_config = (req, res) => {
 
             node_manager.send_data({
                 topic:"navigation1",
-                script:`roslaunch /home/agv/Desktop/code/Package-AGV2/manager/nav3-dwa/turtlebot3_navigation.launch`,
+                script:``,
                 mode:"stop"
             });
 
 
             
-            break        
+            break   
+        case 'isOpen_manual_nav':     
+            outData = isOpen_manual_nav
+            break;
     }
     res.send(outData);
 };
