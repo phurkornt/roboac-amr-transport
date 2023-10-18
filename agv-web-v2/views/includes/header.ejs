@@ -185,28 +185,28 @@
             <li class="nav-item menu-open">
 
               <li class="nav-item">
-                <a href="/" class="nav-link">
+                <a href="/" id="dashboard" class="nav-link">
                     <img src="/images/logo.png" style="width: 1.3rem;">
                     <p style="font-size: larger; padding-left: 0.5rem; ">หน้าหลัก</p>
                   </a>
               </li>
 
               <li class="nav-item">
-                <a href="/slam" class="nav-link">
+                <a href="/slam" id="slam" class="nav-link">
                     <img src="/images/maps-c.png" style="width: 1.3rem;">
                     <p style="font-size: larger; padding-left: 0.5rem; ">ระบบสร้างแผนที่</p>
                   </a>
               </li>
 
               <li class="nav-item">
-                  <a href="/waypoint" class="nav-link">
+                  <a href="/waypoint" id="waypoint" class="nav-link">
                     <img src="/images/route-c.png" style="width: 1.3rem;">
                     <p style="font-size: larger; padding-left: 0.5rem; ">ระบบจัดการการนำทาง</p>
                   </a>
               </li>
               
               <li class="nav-item">
-                <a href="/navigation" class="nav-link">
+                <a href="/navigation" id="navigation" class="nav-link">
                   <img src="/images/navigation-c.png" style="width: 1.3rem;">
                     <p style="font-size: larger; padding-left: 0.5rem; ">ระบบการนำทาง</p>
                 </a>
@@ -231,4 +231,46 @@
 
   
   
- 
+ <script>
+  let id = ['dashboard','slam','waypoint','navigation'];
+  let status = '<%= activity_state.activity %>';
+  for(let i of id){
+    document.querySelector('#'+i).addEventListener('click',(event)=>{
+      event.preventDefault();
+
+      if(status !== 'free'){
+        Swal.fire({
+                  title: `ต้องการปิดระบบ ${status} ?`,
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'ยืนยัน',
+                  cancelButtonText: 'ยกเลิก'
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    axios.get(`/${status}_config?mode=close`)
+                        .then(response => {
+                          if (response.data == 'OK') {
+                            alert_fire('ปิดระบบเรียบร้อยเเล้ว')
+                          } else {
+                            alert_error('Error')
+                          }
+                          setTimeout(() => {
+                            window.location.pathname = document.querySelector('#'+i).getAttribute('href')
+                          }, 250);
+                        })
+                        .catch(error => {
+                          console.log(error);
+                          alert_error('Error')
+                        });
+                  }
+                })
+
+      }else{
+          window.location.pathname = document.querySelector('#'+i).getAttribute('href')
+      }
+
+    })
+  }
+ </script>
