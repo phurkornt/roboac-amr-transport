@@ -131,6 +131,7 @@ exports.waypoint_config = (req, res) => {
                     mode:"start"
                 });
             }, 500);
+            
 
             node_manager.send_data({
                 topic:"navigation1",

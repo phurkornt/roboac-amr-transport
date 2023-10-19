@@ -39,6 +39,7 @@ now_pose = {
     "y":0
 }
 
+mode_run = "loop"
 # --------------- GLOBAL VARIABLE ---------------
 
 
@@ -47,12 +48,14 @@ def callback_button(data):
     json_data = json.loads(data.data)
     if json_data['button'] == "1":
         waitStep['isStoppoint'] = True
+    else:
+        waitStep['isStoppoint'] = False
 
 def callback_robot_pose(data):
-    global pose , index ,waitStep , now_pose
+    global pose , index ,waitStep , now_pose , mode_run
     if  isStop == False:
-        scaleX = 0.5
-        scaleY = 0.5
+        scaleX = 0.3
+        scaleY = 0.3
         recXmin = pose[index]['pose']['position']['x'] - scaleX
         recXmax = pose[index]['pose']['position']['x'] + scaleX
         recYmin = pose[index]['pose']['position']['y'] - scaleY
@@ -68,7 +71,7 @@ def callback_robot_pose(data):
 
 
 def callback_test(data):
-    global pose ,index ,isStop,client ,waypoint_pose,charge_pose ,waitStep
+    global pose ,index ,isStop,client ,waypoint_pose,charge_pose ,waitStep , mode_run
     mes =  data.data
     json_data = json.loads(mes)
     rospy.loginfo(json_data)
@@ -106,6 +109,8 @@ def callback_test(data):
         rospy.loginfo(pose)
 
     elif json_data['mode'] == "run":
+        print(json_data)
+        mode_run = json_data['mode_run']
         manage_move()
     elif json_data['mode'] == "pause":
         client.cancel_goal()
@@ -179,7 +184,7 @@ def move_passpoint(pose,index):
 
 
 def talker():
-    global index,isStop ,selece_mode,client,trick_run,waitStep , pose
+    global index,isStop ,selece_mode,client,trick_run,waitStep , pose , mode_run
     
     pub = rospy.Publisher('/roboAC/nav_node/public', String, queue_size=10)
     rate = rospy.Rate(10) # 10hz
@@ -204,8 +209,12 @@ def talker():
                 trick_run = True
         elif selece_mode == "charge_point" :
             if isStop == True:selece_mode=''
-            if waitStep['isPasspoint'] == True:
-                index+=1
+            if waitStep['isStoppoint'] == True:
+                if mode_run == "loop":
+                    index=0
+                else:
+                    index+=1
+
                 selece_mode=''
                 trick_run = True
 

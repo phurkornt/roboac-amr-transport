@@ -166,7 +166,7 @@
         });
 
         listener.subscribe(function(message) {
-          console.log('Received message on ' + listener.name + ': ' + message.data);
+          // console.log('Received message on ' + listener.name + ': ' + message.data);
           num = Number.parseInt(message.data);
           dt = document.querySelectorAll('.status');
           if(num == 0){

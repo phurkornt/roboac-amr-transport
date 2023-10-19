@@ -14,7 +14,7 @@ import json
 
 server = ''
 
-init_pose_global = {"position":{"x":0,"y":0,"z":0.0},"orientation":{"x":0,"y":0,"z":0,"w":0}}
+init_pose_global = {"position":{"x":0,"y":0,"z":0.0},"orientation":{"x":0,"y":0,"z":0,"w":1}}
 def processFeedback2(feedback):
     p = feedback.pose
     # server.setPose('1',p)
@@ -46,6 +46,7 @@ def processFeedback(feedback):
     init_pose_global["orientation"]["z"] = p.orientation.z
     init_pose_global["orientation"]["w"] = p.orientation.w
 
+    print(init_pose_global)
     #print(str(p),type(p))
 
     # print(feedback.marker_name + " is now at " + str(p.x) + ", " + str(p.y) + ", " + str(p.z))
@@ -124,6 +125,7 @@ def init_get_data_type():
     """
         Create data type msg.PoseWithCovarianceStamped
     """
+    global init_pose_global
     initpose = msg.PoseWithCovarianceStamped()
     # initpose.header.stamp = rospy.get_rostime()
     initpose.header.frame_id = "map"
@@ -134,7 +136,14 @@ def init_get_data_type():
     initpose.pose.pose.orientation.x = init_pose_global["orientation"]["x"]
     initpose.pose.pose.orientation.y = init_pose_global["orientation"]["y"]
     initpose.pose.pose.orientation.z = init_pose_global["orientation"]["z"] 
+    # initpose.pose.pose.position.x = 0
+    # initpose.pose.pose.position.y = 0
+    # initpose.pose.pose.orientation.w = 0
+    # initpose.pose.pose.orientation.x = 0
+    # initpose.pose.pose.orientation.y = 0
+    # initpose.pose.pose.orientation.z = 0 
     return initpose
+
 
 def init_first_pose( position , orientation):
     """
@@ -212,7 +221,6 @@ def callback_manage(data):
         pub = rospy.Publisher('/initialpose', msg.PoseWithCovarianceStamped, queue_size=10)
         position = {"x":0,"y":0,"z":0.01}
         orientation = {"x":0,"y":0,"z":0,"w":1}
-
         if 'pose' in json_data:
             pose = json_data['pose']
             position = pose['position']

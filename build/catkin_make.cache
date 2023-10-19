@@ -1,2 +1,2 @@
-manager_robot
+manager_robot:robot_odom
 -DCATKIN_DEVEL_PREFIX=/home/agv/Desktop/code/Package-AGV2/devel -DCMAKE_INSTALL_PREFIX=/home/agv/Desktop/code/Package-AGV2/install -G Unix Makefiles

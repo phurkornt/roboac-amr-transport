@@ -189,7 +189,7 @@
       if (plan_name == "none") {
 
         await Swal.fire({
-          title: 'ใส่ชื่อของ plan',
+          title: 'ใส่ชื่อของ Path',
           input: 'text',
           inputAttributes: {
             autocapitalize: 'off'
@@ -283,6 +283,8 @@
 
 
             <div>
+
+              
               <img src="/images/icons/battery.svg" style="width: 1.5rem;">
               <p style="font-size: medium;" class="m-0 d-inline">charge ( จุดชารจ์ )</p>
 
@@ -319,6 +321,31 @@
 
                 </ul>
               </div>
+
+            </div>
+
+            
+            <div >
+              <img src="/images/gps-navigation.png" style="width: 1.5rem;">
+              <p style="font-size: medium;" class="m-0 d-inline">manual nav ( ควบคุมการเคลื่อนที่ )</p>
+              <hr>
+              <div class="input-group mb-3">
+                <span class="input-group-text">ความเร็วเชิงเส้น</span>
+                <input name="linear_speed" type="number" class="form-control" value="0.2">
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text">ความเร็วเชิงมุม</span>
+                <input name="angular_speed" type="number" class="form-control" value="0.2">
+              </div>
+  
+              <div class="row container-fluid">
+                <div id="m-f" class="col-3  btn btn-outline-secondary p-3   ">เดินทาง</div>
+                <div id="m-b" class="col-3  btn btn-outline-secondary p-3   ">ถอยหลัง</div>
+                <div id="m-l" class="col-3  btn btn-outline-secondary p-3   ">หมุนซ้าย</div>
+                <div id="m-r" class="col-3  btn btn-outline-secondary p-3   ">หมุนขวา</div>
+                <div id="m-s" class="col-12 btn btn-outline-danger p-3   ">หยุด</div>
+              </div>
+    
             </div>
 
 
@@ -329,7 +356,7 @@
 
           <div class="m-3">
             <button onclick="save_plan()" type="button" class="btn p-4 btn-success btn-lg">บันทึกเส้นทาง</button>
-            <button onclick="close_map()" type="button" class="btn p-4 btn-danger btn-lg">ปิดระบบ</button>
+            <button onclick="close_map()" type="button" class="btn p-4 btn-danger btn-lg">ยกเลิก</button>
           </div>
 
         </div>
@@ -743,7 +770,7 @@
 
         // ------------------ Manual POSE ------------------
 
-
+       
         // ------------------ Set POSE ------------------
         const editIcon3 = document.createElement('i');
         editIcon3.classList.add('fas', 'fa-map-marked-alt', 'text-primary');
@@ -868,7 +895,58 @@
       //   material: { size: 0.5, color: 0x1111 }
       // })
 
+ //  ---------------------------- CMD_VEL ----------------------------
 
+ cmd_vel_listener = new ROSLIB.Topic({
+        ros: ros,
+        name: "/cmd_vel",
+        messageType: 'geometry_msgs/Twist'
+      });
+      move = function (linear, angular) {
+        var twist = new ROSLIB.Message({
+          linear: {
+            x: linear,
+            y: 0,
+            z: 0
+          },
+          angular: {
+            x: 0,
+            y: 0,
+            z: angular
+          }
+        });
+
+        cmd_vel_listener.publish(twist);
+      }
+      function getSpeed() {
+        let ang = parseFloat(document.querySelector("input[name=angular_speed]").value)
+        let lin = parseFloat(document.querySelector("input[name=linear_speed]").value)
+        let max_limit = 1;
+        if (ang >= max_limit) ang = max_limit;
+        if (lin >= max_limit) lin = max_limit;
+        return [lin, ang];
+      }
+      document.querySelector('#m-f').addEventListener('click', function () {
+        const [lin, ang] = getSpeed();
+        move(lin, 0);
+      })
+      document.querySelector('#m-b').addEventListener('click', function () {
+        const [lin, ang] = getSpeed();
+        move(-lin, 0);
+      })
+      document.querySelector('#m-l').addEventListener('click', function () {
+        const [lin, ang] = getSpeed();
+        move(0, ang);
+      })
+      document.querySelector('#m-r').addEventListener('click', function () {
+        const [lin, ang] = getSpeed();
+        move(0, -ang);
+      })
+      document.querySelector('#m-s').addEventListener('click', function () {
+        move(0, 0);
+      })
+
+      //  ---------------------------- CMD_VEL ----------------------------
       // ----------------------- Setup the marker client. -----------------------
       var imClient = new ROS3D.InteractiveMarkerClient({
         ros: ros,

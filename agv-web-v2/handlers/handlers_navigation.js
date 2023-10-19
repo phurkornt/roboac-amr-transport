@@ -138,7 +138,8 @@ exports.navigation_nav = (req, res) => {
         break
         case "run":
             node_manager.send_nav_data({
-                mode:"run"
+                mode:"run",
+                mode_run:req.query.mode_run
             })
         break
     }

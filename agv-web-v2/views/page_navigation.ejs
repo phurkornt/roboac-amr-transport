@@ -28,36 +28,36 @@
         <hr>
 
         <div class="container">
-            <div class="form-group">
+          <div class="form-group">
 
-                <label>ชื่อแผนที่</label>
-                <select id="map_name" class="form-control select2" style="width: 100%;" >
+            <label>ชื่อแผนที่</label>
+            <select id="map_name" class="form-control select2" style="width: 100%;">
 
-                <option selected="selected" value="">เลือกแผนที่</option>
+              <option selected="selected" value="">เลือกแผนที่</option>
 
-                <% for(let i of map_files){%>
+              <% for(let i of map_files){%>
 
-                    <option value="<%= i.split('.json')[0] %>" >
-                    <%= i.split('.json')[0] %>
-                    </option>
+                <option value="<%= i.split('.json')[0] %>">
+                  <%= i.split('.json')[0] %>
+                </option>
 
-                    <% } %>
+                <% } %>
 
-                </select>
+            </select>
 
-            </div>
+          </div>
 
-            <div class="mt-4">
-                <button onclick="open_waypoint()" type="button"
-                class="btn p-4 btn-success btn-lg">เปิดระบบการเคลื่อนที่</button>
-            </div>
+          <div class="mt-4">
+            <button onclick="open_waypoint()" type="button"
+              class="btn p-4 btn-success btn-lg">เปิดระบบการเคลื่อนที่</button>
+          </div>
         </div>
 
       </div>
     </div>
   </div>
 
-  
+
 
   <script>
 
@@ -90,10 +90,10 @@
 
 
   <%}else{%>
-    
 
 
-    <% if(embed_plan_name!=''){%>
+
+    <% if(embed_plan_name!='' ){%>
 
       <div class="container-fluid">
         <br>
@@ -103,6 +103,19 @@
             <div class="card-body ">
               <h3 class="card-title mb-1"> Waypoint </h3>
               <hr>
+
+              <div>
+                <p style="font-size: medium;" class="m-0 d-inline text-bold mr-3">Mode การวิ่ง :</p>
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                  <label id="mode_loop" class="btn btn-success " >
+                  <input type="radio" name="options" id="option_a2" autocomplete="off" checked> Loop
+                  </label>
+                  <label id="mode_normal" class="btn btn-success">
+                  <input type="radio" name="options" id="option_a3" autocomplete="off"> Normal
+                  </label>
+                </div>
+              </div>
+
               <table class="table table-hover">
                 <thead>
                   <tr>
@@ -113,41 +126,49 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <% let n = 1; %>
-                  <% for( let i of plan_waypoint.waypoint ) { %>
-                  <tr>
-                    <td class="text-lg"><%= n++ %></td>
-                    <td class="text-lg"><%= i.name %></td>
+                  <% let n=1; %>
+                    <% for( let i of plan_waypoint.waypoint ) { %>
+                      <tr>
+                        <td class="text-lg">
+                          <%= n++ %>
+                        </td>
+                        <td class="text-lg">
+                          <%= i.name %>
+                        </td>
 
-                    <% if(i.type == "pass_point"){%>
-                      <td class="text-lg">
-                        <i class="fas fa-paper-plane"></i>
-                      </td>
-                    <%}else if(i.type == "stop_point"){%>
-                      <td class="text-lg">
-                        <i class="fas fa-flag"></i>
-                      </td>
-                    <%}%>
+                        <% if(i.type=="pass_point" ){%>
+                          <td class="text-lg">
+                            <i class="fas fa-paper-plane"></i>
+                          </td>
+                          <%}else if(i.type=="stop_point" ){%>
+                            <td class="text-lg">
+                              <i class="fas fa-flag"></i>
+                            </td>
+                            <%}%>
 
-                    <td class="status">
-                      <img src="/images/record.png" style="width: 1.5rem;">
-                    </td>
+                              <td class="status">
+                                <img src="/images/record.png" style="width: 1.5rem;">
+                              </td>
 
-                  </tr>
-                  <% } %>
-                  <% for( let i of plan_waypoint.chargepoint ) { %>
-                    <tr>
-                      <td class="text-lg"><%= n++ %></td>
-                      <td class="text-lg"><%= i.name %></td>
-                      <td class="text-lg">
-                        <img src="/images/icons/battery.svg" style="width: 1.5rem;">
-                      </td>
-                      <td class="status">
-                        <img src="/images/record.png" style="width: 1.5rem;">
-                      </td>
-                      
-                    </tr>
-                    <% } %>
+                      </tr>
+                      <% } %>
+                        <% for( let i of plan_waypoint.chargepoint ) { %>
+                          <tr>
+                            <td class="text-lg">
+                              <%= n++ %>
+                            </td>
+                            <td class="text-lg">
+                              <%= i.name %>
+                            </td>
+                            <td class="text-lg">
+                              <img src="/images/icons/battery.svg" style="width: 1.5rem;">
+                            </td>
+                            <td class="status">
+                              <img src="/images/record.png" style="width: 1.5rem;">
+                            </td>
+
+                          </tr>
+                          <% } %>
 
                 </tbody>
               </table>
@@ -155,26 +176,31 @@
             <div class="m-4">
               <button onclick="get_back()" type="button" class="btn p-3 btn-danger btn-lg">ย้อนกลับ</button>
             </div>
-            
+
           </div>
 
-          
+
           <div class="col-xl-8 col-lg-12 col-12  ">
             <div class="row">
               <!-- <div class="col-4"> -->
-                <!-- <p>test Battery 10%</p> -->
-                <!-- <p>test Velocity 0.15m/s</p> -->
+              <!-- <p>test Battery 10%</p> -->
+              <!-- <p>test Velocity 0.15m/s</p> -->
               <!-- </div> -->
               <div class="col-8 mb-3">
+                
                 <!-- <button onclick="my_test('set')"type="button" class="btn p-3 btn-success btn-lg">set</button> -->
-                <button onclick="my_test('run')"type="button" class="btn p-3 btn-outline-success btn-lg">เริ่มการเคลื่อนที่</button>
-                <button onclick="my_test('pause')" type="button" class="btn p-3 btn-outline-danger btn-lg">หยุดการเคลื่อนที่</button>
-                <button onclick="my_test('sw')" type="button" class="btn p-3 btn-outline-secondary btn-lg">ไปที่สถานีต่อไป</button>
-                <button onclick="restart_move()" type="button" class="btn p-3 btn-outline-secondary btn-lg">เริ่มการเคลื่อนที่ใหม่</button>
+                <button onclick="my_test('run')" type="button"
+                  class="btn p-3 btn-outline-success btn-lg">เริ่มการเคลื่อนที่</button>
+                <button onclick="my_test('pause')" type="button"
+                  class="btn p-3 btn-outline-danger btn-lg">หยุดการเคลื่อนที่</button>
+                <button onclick="my_test('sw')" type="button"
+                  class="btn p-3 btn-outline-secondary btn-lg">ไปที่สถานีต่อไป</button>
+                <button onclick="restart_move()" type="button"
+                  class="btn p-3 btn-outline-secondary btn-lg">เริ่มการเคลื่อนที่ใหม่</button>
               </div>
             </div>
 
-            
+
             <div id="map"></div>
           </div>
 
@@ -183,18 +209,27 @@
 
       <script>
         let plan_waypoint = JSON.parse('<%-JSON.stringify(plan_waypoint)%>')
-        function restart_move(){
+        function restart_move() {
           my_test("set")
           my_test("run")
         }
-        function my_test(mode){
-          axios.get(`/navigation_nav?mode=${mode}`)
-          .then(response => {
-          })
-          .catch(error => {
-            console.log(error);
-            alert_error('Error')
-          });
+        function my_test(mode) {
+          let mode_run = "normal";
+          if(mode=='run'){
+            let mode_loop = document.querySelector('#mode_loop')
+            for(let i of mode_loop.classList){
+              if( i == "active"){
+                mode_run = "loop"
+              }
+            }
+          }
+          axios.get(`/navigation_nav?mode=${mode}&mode_run=${mode_run}`)
+            .then(response => {
+            })
+            .catch(error => {
+              console.log(error);
+              alert_error('Error')
+            });
 
         }
         function get_back() {
@@ -203,7 +238,7 @@
             .then(response => {
               if (response.data == 'OK') {
                 // alert_fire('')
-                  location.reload();
+                location.reload();
               } else {
                 alert_error('Error')
               }
@@ -218,101 +253,106 @@
       </script>
 
       <%- include('./js/page_nav/js_nav_run'); %>
-      
-    <%}else{%>
+
+        <%}else{%>
 
 
-    <div class="container-fluid">
-      <br>
-      <h1 class="text-center">ระบบการนำทาง</h1>
-      <div class="row">
-        <div class="ml-5 col-xl-3 col-lg-12 col-12 card">
-          <div class="card-body ">
-            <h3 class="card-title mb-1">แผน waypoint ของระบบ</h3>
-            <hr>
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">ชื่อ waypoint</th>
-                  <th scope="col">เลือกใช้งาน</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% let n = 1; %>
-                <% for( let i in plan_waypoint.plan ) { %>
-                <tr>
-                  <td class="text-lg"><%= n++ %></th>
-                  <td class="text-lg"><%= i %></td>
-                  <td><button onclick="run_plan('<%= i %>')" type="button" class="btn btn-success">ใช้งาน</button></td>
-                </tr>
-                <% } %>
-              </tbody>
-            </table>
+          <div class="container-fluid">
+            <br>
+            <h1 class="text-center">ระบบการนำทาง</h1>
+            <div class="row">
+              <div class="ml-5 col-xl-3 col-lg-12 col-12 card">
+                <div class="card-body ">
+                  <h3 class="card-title mb-1">แผน waypoint ของระบบ</h3>
+                  <hr>
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">ชื่อ waypoint</th>
+                        <th scope="col">เลือกใช้งาน</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% let n=1; %>
+                        <% for( let i in plan_waypoint.plan ) { %>
+                          <tr>
+                            <td class="text-lg">
+                              <%= n++ %>
+                                </th>
+                            <td class="text-lg">
+                              <%= i %>
+                            </td>
+                            <td><button onclick="run_plan('<%= i %>')" type="button"
+                                class="btn btn-success">ใช้งาน</button></td>
+                          </tr>
+                          <% } %>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="m-3">
+                  <button onclick="close_map()" type="button" class="btn p-4 btn-danger btn-lg">ปิดระบบ</button>
+                </div>
+              </div>
+              <div id="place_btn" class="col-xl-8 col-lg-12 col-12  ">
+
+                <button id="btn_init_pose" type="button" class="btn  btn-default btn-lg">
+                  <img src="/images/icons/flag.svg" style="width: 2rem;">
+                  <p style="font-size: smaller;" class="m-0">init pose</p>
+
+                </button>
+
+                <div id="map"></div>
+              </div>
+            </div>
           </div>
-          <div class="m-3">
-            <button onclick="close_map()" type="button" class="btn p-4 btn-danger btn-lg">ปิดระบบ</button>
-          </div>
-        </div>
-        <div id="place_btn" class="col-xl-8 col-lg-12 col-12  ">
 
-          <button id="btn_init_pose" type="button" class="btn  btn-default btn-lg">
-            <img src="/images/icons/flag.svg" style="width: 2rem;">
-            <p style="font-size: smaller;" class="m-0">init pose</p>
-            
-          </button>
-
-          <div id="map"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- For Page -->
-    <script>
-      function run_plan(plan) {
-        plan_name = plan || ''
-        axios.get(`/navigation_config?mode=run_plan&plan_name=${plan_name}`)
-          .then(response => {
-            if (response.data == 'OK') {
-              location.reload();
-            } else {
-              alert_error('Error')
+          <!-- For Page -->
+          <script>
+            function run_plan(plan) {
+              plan_name = plan || ''
+              axios.get(`/navigation_config?mode=run_plan&plan_name=${plan_name}`)
+                .then(response => {
+                  if (response.data == 'OK') {
+                    location.reload();
+                  } else {
+                    alert_error('Error')
+                  }
+                })
+                .catch(error => {
+                  console.log(error);
+                  alert_error('Error')
+                });
             }
-          })
-          .catch(error => {
-            console.log(error);
-            alert_error('Error')
-          });
-      }
-      function close_map() {
-        clear_marker();
-        axios.get(`/navigation_config?mode=close`)
-          .then(response => {
-            if (response.data == 'OK') {
-              alert_fire('ปิดระบบเรียบร้อยเเล้ว')
-              setTimeout(() => {
-                location.reload();
-              }, 1500);
-            } else {
-              alert_error('Error')
+            function close_map() {
+              clear_marker();
+              axios.get(`/navigation_config?mode=close`)
+                .then(response => {
+                  if (response.data == 'OK') {
+                    alert_fire('ปิดระบบเรียบร้อยเเล้ว')
+                    setTimeout(() => {
+                      location.reload();
+                    }, 1500);
+                  } else {
+                    alert_error('Error')
+                  }
+                })
+                .catch(error => {
+                  console.log(error);
+                  alert_error('Error')
+                });
             }
-          })
-          .catch(error => {
-            console.log(error);
-            alert_error('Error')
-          });
-      }
 
 
-      
-    </script>
-    <%- include('./js/page_nav/js_nav_select'); %>
 
-    <%} %>
+          </script>
+          <%- include('./js/page_nav/js_nav_select'); %>
 
-    
+            <%} %>
 
 
 
 
-  <%} %>
+
+
+              <%} %>
