@@ -1,8 +1,8 @@
-# Install script for directory: /home/agv/Desktop/code/Package-AGV2/src/robot_odom
+# Install script for directory: /home/agv/Desktop/roboac-amr-transport/src/robot_odom
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/agv/Desktop/code/Package-AGV2/install")
+  set(CMAKE_INSTALL_PREFIX "/home/agv/Desktop/roboac-amr-transport/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,17 +38,17 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/agv/Desktop/code/Package-AGV2/build/robot_odom/catkin_generated/installspace/robot_odom.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/agv/Desktop/roboac-amr-transport/build/robot_odom/catkin_generated/installspace/robot_odom.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/robot_odom/cmake" TYPE FILE FILES
-    "/home/agv/Desktop/code/Package-AGV2/build/robot_odom/catkin_generated/installspace/robot_odomConfig.cmake"
-    "/home/agv/Desktop/code/Package-AGV2/build/robot_odom/catkin_generated/installspace/robot_odomConfig-version.cmake"
+    "/home/agv/Desktop/roboac-amr-transport/build/robot_odom/catkin_generated/installspace/robot_odomConfig.cmake"
+    "/home/agv/Desktop/roboac-amr-transport/build/robot_odom/catkin_generated/installspace/robot_odomConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/robot_odom" TYPE FILE FILES "/home/agv/Desktop/code/Package-AGV2/src/robot_odom/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/robot_odom" TYPE FILE FILES "/home/agv/Desktop/roboac-amr-transport/src/robot_odom/package.xml")
 endif()
 

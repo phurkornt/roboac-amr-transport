@@ -1,4 +1,4 @@
-prefix=/home/agv/Desktop/code/Package-AGV2/install
+prefix=/home/agv/Desktop/roboac-amr-transport/install
 
 Name: robot_odom
 Description: Description of robot_odom

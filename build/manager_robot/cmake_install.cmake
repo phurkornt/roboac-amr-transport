@@ -1,8 +1,8 @@
-# Install script for directory: /home/agv/Desktop/code/Package-AGV2/src/manager_robot
+# Install script for directory: /home/agv/Desktop/roboac-amr-transport/src/manager_robot
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/agv/Desktop/code/Package-AGV2/install")
+  set(CMAKE_INSTALL_PREFIX "/home/agv/Desktop/roboac-amr-transport/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,17 +38,17 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/agv/Desktop/code/Package-AGV2/build/manager_robot/catkin_generated/installspace/manager_robot.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/agv/Desktop/roboac-amr-transport/build/manager_robot/catkin_generated/installspace/manager_robot.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/manager_robot/cmake" TYPE FILE FILES
-    "/home/agv/Desktop/code/Package-AGV2/build/manager_robot/catkin_generated/installspace/manager_robotConfig.cmake"
-    "/home/agv/Desktop/code/Package-AGV2/build/manager_robot/catkin_generated/installspace/manager_robotConfig-version.cmake"
+    "/home/agv/Desktop/roboac-amr-transport/build/manager_robot/catkin_generated/installspace/manager_robotConfig.cmake"
+    "/home/agv/Desktop/roboac-amr-transport/build/manager_robot/catkin_generated/installspace/manager_robotConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/manager_robot" TYPE FILE FILES "/home/agv/Desktop/code/Package-AGV2/src/manager_robot/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/manager_robot" TYPE FILE FILES "/home/agv/Desktop/roboac-amr-transport/src/manager_robot/package.xml")
 endif()
 

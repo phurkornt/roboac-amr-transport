@@ -1,4 +1,4 @@
-prefix=/home/agv/Desktop/code/Package-AGV2/devel
+prefix=/home/agv/Desktop/roboac-amr-transport/devel
 
 Name: manager_robot
 Description: Description of manager_robot

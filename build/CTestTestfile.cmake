@@ -1,9 +1,9 @@
 # CMake generated Testfile for 
-# Source directory: /home/agv/Desktop/code/Package-AGV2/src
-# Build directory: /home/agv/Desktop/code/Package-AGV2/build
+# Source directory: /home/agv/Desktop/roboac-amr-transport/src
+# Build directory: /home/agv/Desktop/roboac-amr-transport/build
 # 
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.
 subdirs("gtest")
-subdirs("manager_robot")
+subdirs("robot_manager")
 subdirs("robot_odom")

@@ -1,27 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <title>Roboac AMR - <%= title %>
-  </title>
-  <link rel="icon" type="image/jpg" href="../images/logo.png" />
+  
+  <title>Roboac AMR - <%= title %></title>
+  <link rel="icon" type="image/jpg" href="../images/logo.png"/>
 
   <!-- ####### MAKE IT OFFLINE #######  -->
-
+  
   <!-- Google Font: Source Sans Pro -->
   <!-- <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400&display=swap" rel="stylesheet"> -->
 
   <!-- <link href="/fonts/nato-font/css.css" rel="stylesheet">
   <link href="/fonts/nato-font/css2.css" rel="stylesheet"> -->
 
-
+  
   <!-- <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"> -->
-
-
+  
+  
   <!-- ####### MAKE IT OFFLINE #######  -->
 
 
@@ -32,7 +30,7 @@
   <!-- <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> -->
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
-
+  
 
   <!-- ============================== Script ==============================-->
   <!-- jQuery -->
@@ -40,7 +38,7 @@
   <!-- Bootstrap 4 -->
   <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- DataTables  & Plugins -->
-
+  
   <script src="../../plugins/jszip/jszip.min.js"></script>
   <script src="../../plugins/pdfmake/pdfmake.min.js"></script>
   <script src="../../plugins/pdfmake/vfs_fonts.js"></script>
@@ -80,158 +78,170 @@
   <script src="../build/rosjs/three.min.js"></script>
   <script src="../build/rosjs/eventemitter2.js"></script>
   <script src="../build/rosjs/roslib.js"></script>
-
+  
   <!-- ####### MAKE IT OFFLINE #######  -->
 
   <script src="../build/ros3d.js"></script>
 
-  <!-- New gens -->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
 
   <style>
-    @font-face {
-      font-family: 'Noto Sans Thai';
-      font-style: normal;
-      font-weight: 400;
-      src: url('/fonts/NotoSansThai-VariableFont_wdth,wght.ttf') format('truetype');
-    }
+    
+     @font-face {
+        font-family: 'Noto Sans Thai';
+        font-style: normal;
+        font-weight: 400;
+        src: url('/fonts/NotoSansThai-VariableFont_wdth,wght.ttf') format('truetype');
+      }
 
-    /* Use the font in your CSS */
-    body {
-      font-family: 'Noto Sans Thai';
-    }
+        /* Use the font in your CSS */
+      body {
+        font-family: 'Noto Sans Thai';
+      }
+      
   </style>
 </head>
 
-<body id="page-top">
 
-  <!-- Page Wrapper -->
-  <div id="wrapper">
+<body class="hold-transition sidebar-mini">
+  <!-- Error Status -->
+  
+  
+  
+  <!-- Error Status -->
 
-    <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-      <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon rotate-n-15">
-          <!-- <i class="fas fa-laugh-wink"></i> -->
-        </div>
-        <div class="sidebar-brand-text mx-3">MEC-BOT</div>
+
+
+  <div class="wrapper">
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+      <!-- Left navbar links -->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <!-- <li class="nav-item d-none d-sm-inline-block">
+          <a href="/" class="nav-link">หน้าเเรก</a>
+        </li> -->
+       
+      </ul>
+  
+      <!-- Right navbar links -->
+      <ul class="navbar-nav ml-auto">
+  
+        <li class="nav-item">
+          <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+            <i class="fas fa-expand-arrows-alt"></i>
+          </a>
+        </li>
+  
+        <li class="nav-item">
+          <a class="nav-link " role="button">
+           <!-- Batterry 90% -->
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link " style="font-weight: bolder;" role="button">
+            Status : <%= activity_state.activity %>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/logout" role="button">
+            ออกจากระบบ
+          </a>
+        </li>
+  
+      </ul>
+    </nav>
+    <!-- /.navbar -->
+  
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+      <!-- Brand Logo -->
+      <a href="#" class="brand-link bg-purple text-center">
+        <h5 class="brand-text  text-white">
+        </h5>
       </a>
+  
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex justify-content-center">
+          
+          <div class="info">
+            <h5 class="text-center text-white text-md ">
+              <p style="font-size: 1.3rem; font-weight: 600;">Robot AMR System</p>
+            </h5>
+          </div>
+        </div>
+ 
+  
+         <!-- Sidebar Menu -->
+         <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
+                 with font-awesome or any other icon font library -->
+            <li class="nav-item menu-open">
 
-      <!-- Divider -->
-      <hr class="sidebar-divider my-0">
+              <li class="nav-item">
+                <a href="/" id="dashboard" class="nav-link">
+                    <img src="/images/logo.png" style="width: 1.3rem;">
+                    <p style="font-size: larger; padding-left: 0.5rem; ">หน้าหลัก</p>
+                  </a>
+              </li>
 
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="/">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span style="font-size: larger; padding-left: 0.3rem;">หน้าหลัก</span></a>
-      </li>
+              <li class="nav-item">
+                <a href="/slam" id="slam" class="nav-link">
+                    <img src="/images/maps-c.png" style="width: 1.3rem;">
+                    <p style="font-size: larger; padding-left: 0.5rem; ">ระบบสร้างแผนที่</p>
+                  </a>
+              </li>
 
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Interface
-      </div>
-
-      <!-- Nav ITEM -->
-      <li class="nav-item">
-        <a class="nav-link" href="/slam">
-          <img src="/images/maps-c.png" style="width: 1.7rem;">
-          <span  style="font-size: larger; padding-left: 0.3rem; ">สร้างแผนที่</span></a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" href="/waypoint">
-          <img src="/images/route-c.png" style="width: 1.7rem;">
-          <span  style="font-size: larger; padding-left: 0.3rem; ">สร้างเส้นทาง</span></a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" href="/navigation">
-          <img src="/images/navigation-c.png" style="width: 1.7rem;">
-          <span  style="font-size: larger; padding-left: 0.3rem; ">ควบคุม Robot</span></a>
-      </li>
-
-
-
-
-
-
-
-
-
-
-
-    </ul>
-    <!-- End of Sidebar -->
-
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
-
-      <!-- Main Content -->
-      <div id="content">
-
-        <!-- Topbar -->
-        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-          <!-- Sidebar Toggle (Topbar) -->
-          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-            <i class="fa fa-bars"></i>
-          </button>
-
-
-          <!-- Topbar Navbar -->
-          <ul class="navbar-nav ml-auto">
-
-            <!-- Nav Item - User Information -->
-            <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
-              </a>
-              <!-- Dropdown - User Information -->
-              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Profile
+              <li class="nav-item">
+                  <a href="/waypoint" id="waypoint" class="nav-link">
+                    <img src="/images/route-c.png" style="width: 1.3rem;">
+                    <p style="font-size: larger; padding-left: 0.5rem; ">ระบบจัดการการนำทาง</p>
+                  </a>
+              </li>
+              
+              <li class="nav-item">
+                <a href="/navigation" id="navigation" class="nav-link">
+                  <img src="/images/navigation-c.png" style="width: 1.3rem;">
+                    <p style="font-size: larger; padding-left: 0.5rem; ">ระบบการนำทาง</p>
                 </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Settings
-                </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Activity Log
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Logout
-                </a>
-              </div>
+              </li>
+                
+              
             </li>
-
+            
           </ul>
-
         </nav>
+        <!-- /.sidebar-menu -->
+
+        
+      </div>
+      <!-- /.sidebar -->
+    </aside>
+  
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
 
 
 
-        <script>
-          let id = ['dashboard', 'slam', 'waypoint', 'navigation'];
-          let status = '<%= activity_state.activity %>';
-          for (let i of id) {
-            document.querySelector('#' + i).addEventListener('click', (event) => {
-              event.preventDefault();
+  
+  
+ <script>
+  let id = ['dashboard','slam','waypoint','navigation'];
+  let status = '<%= activity_state.activity %>';
+  for(let i of id){
+    document.querySelector('#'+i).addEventListener('click',(event)=>{
+      event.preventDefault();
 
-              if (status !== 'free') {
-                Swal.fire({
+      if(status !== 'free'){
+        Swal.fire({
                   title: `ต้องการปิดระบบ ${status} ?`,
                   icon: 'warning',
                   showCancelButton: true,
@@ -242,27 +252,27 @@
                 }).then((result) => {
                   if (result.isConfirmed) {
                     axios.get(`/${status}_config?mode=close`)
-                      .then(response => {
-                        if (response.data == 'OK') {
-                          alert_fire('ปิดระบบเรียบร้อยเเล้ว')
-                        } else {
+                        .then(response => {
+                          if (response.data == 'OK') {
+                            alert_fire('ปิดระบบเรียบร้อยเเล้ว')
+                          } else {
+                            alert_error('Error')
+                          }
+                          setTimeout(() => {
+                            window.location.pathname = document.querySelector('#'+i).getAttribute('href')
+                          }, 250);
+                        })
+                        .catch(error => {
+                          console.log(error);
                           alert_error('Error')
-                        }
-                        setTimeout(() => {
-                          window.location.pathname = document.querySelector('#' + i).getAttribute('href')
-                        }, 250);
-                      })
-                      .catch(error => {
-                        console.log(error);
-                        alert_error('Error')
-                      });
+                        });
                   }
                 })
 
-              } else {
-                window.location.pathname = document.querySelector('#' + i).getAttribute('href')
-              }
+      }else{
+          window.location.pathname = document.querySelector('#'+i).getAttribute('href')
+      }
 
-            })
-          }
-        </script>
+    })
+  }
+ </script>

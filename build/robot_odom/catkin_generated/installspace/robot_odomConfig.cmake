@@ -67,14 +67,14 @@ set(robot_odom_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(robot_odom_SOURCE_PREFIX /home/agv/Desktop/code/Package-AGV2/src/robot_odom)
-  set(robot_odom_DEVEL_PREFIX /home/agv/Desktop/code/Package-AGV2/devel)
+  set(robot_odom_SOURCE_PREFIX /home/agv/Desktop/roboac-amr-transport/src/robot_odom)
+  set(robot_odom_DEVEL_PREFIX /home/agv/Desktop/roboac-amr-transport/devel)
   set(robot_odom_INSTALL_PREFIX "")
   set(robot_odom_PREFIX ${robot_odom_DEVEL_PREFIX})
 else()
   set(robot_odom_SOURCE_PREFIX "")
   set(robot_odom_DEVEL_PREFIX "")
-  set(robot_odom_INSTALL_PREFIX /home/agv/Desktop/code/Package-AGV2/install)
+  set(robot_odom_INSTALL_PREFIX /home/agv/Desktop/roboac-amr-transport/install)
   set(robot_odom_PREFIX ${robot_odom_INSTALL_PREFIX})
 endif()
 
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/agv/Desktop/code/Package-AGV2/install/lib;/home/agv/Desktop/code/Package-AGV2/devel/lib;/home/agv/agv/devel/lib;/opt/ros/melodic/lib)
+    foreach(path /home/agv/Desktop/roboac-amr-transport/install/lib;/home/agv/Desktop/roboac-amr-transport/devel/lib;/home/agv/Desktop/code/Package-AGV2/devel/lib;/home/agv/agv/devel/lib;/opt/ros/melodic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

@@ -134,14 +134,14 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/robot_odom_node.cpp)
 
-add_executable(odom_bot ~/agv/src/robot_odom/robot_odom.cpp)
-add_executable(odom_imu ~/agv/src/robot_odom/robot_odom_imu.cpp)
-add_executable(odom_imu_with_imu ~/agv/src/robot_odom/robot_odom_with_imu.cpp)
-add_executable(odom_imu_v2 ~/agv/src/robot_odom/robot_odom_imu_v2.cpp)
+#add_executable(odom_bot ~/agv/src/robot_odom/robot_odom.cpp)
+#add_executable(odom_imu ~/agv/src/robot_odom/robot_odom_imu.cpp)
+#add_executable(odom_imu_with_imu ~/agv/src/robot_odom/robot_odom_with_imu.cpp)
+add_executable(odom_imu_v2 ./robot_odom_imu_v2.cpp)
 
-target_link_libraries(odom_bot ${catkin_LIBRARIES})
-target_link_libraries(odom_imu ${catkin_LIBRARIES})
-target_link_libraries(odom_imu_with_imu ${catkin_LIBRARIES})
+#target_link_libraries(odom_bot ${catkin_LIBRARIES})
+#target_link_libraries(odom_imu ${catkin_LIBRARIES})
+#target_link_libraries(odom_imu_with_imu ${catkin_LIBRARIES})
 target_link_libraries(odom_imu_v2 ${catkin_LIBRARIES})
 
 

@@ -4,6 +4,8 @@ const node_manager = require('../config/node_manager');
 
 const fs = require('fs');
 const path = require('path')
+const {launchType} = require('../util/launch.type');
+
 
 map_path = path.join(__dirname , '..' ,'data','waypoint')
 
@@ -55,7 +57,7 @@ exports.waypoint_config = (req, res) => {
 
                 node_manager.send_data({
                     topic:"slam",
-                    script:`rosrun map_server map_server /home/agv/Desktop/code/Package-AGV2/manager/map/${embed_mapName}.yaml`,
+                    script:`${launchType.OPEN_MAP}/${embed_mapName}.yaml`,
                     mode:"start"
                 });
                 activity_state.writeData(2);
@@ -127,7 +129,7 @@ exports.waypoint_config = (req, res) => {
             setTimeout(() => {
                 node_manager.send_data({
                     topic:"navigation1",
-                    script:`roslaunch /home/agv/Desktop/code/Package-AGV2/manager/nav3-dwa/turtlebot3_navigation.launch`,
+                    script:launchType.NAVIGATION,
                     mode:"start"
                 });
             }, 500);

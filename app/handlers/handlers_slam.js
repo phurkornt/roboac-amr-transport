@@ -2,11 +2,10 @@ const ip = require('../config/ip');
 const activity_state = require('../config/activity_manage');
 const node_manager = require('../config/node_manager');
 
+const {launchType} = require('../util/launch.type');
+
 const fs = require('fs');
 const path = require('path')
-
-
-
 
 
 
@@ -31,7 +30,7 @@ exports.slam_config = (req, res) => {
             if( status == 0){
                 node_manager.send_data({
                     topic:"slam",
-                    script:`roslaunch /home/agv/Desktop/code/Package-AGV2/launch/createmap.launch`,
+                    script:launchType.CREATE_MAP,
                     mode:"start"
                 });
                 activity_state.writeData(1);
@@ -42,7 +41,7 @@ exports.slam_config = (req, res) => {
             mapname = req.query.map_name;
             node_manager.send_data({
                 topic:"save_map",
-                script:`rosrun map_server map_saver -f /home/agv/Desktop/code/Package-AGV2/manager/map/${mapname}`,
+                script:`${launchType.SAVE_MAP}/${mapname}`,
                 mode:"once"
             });
             mypath = path.join(__dirname , '..' ,'data','waypoint')
